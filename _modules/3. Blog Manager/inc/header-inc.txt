@@ -1,0 +1,111 @@
+<?php if($blog_tags == 1 || $blog_post_tags == 1){?>
+<link rel="stylesheet" type="text/css" href="<?php echo $cms_root; ?>js/tag-it/css/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="<?php echo $cms_root; ?>js/tag-it/css/jquery.tagit.css"/>
+<?php }?>
+
+<?php if($moduleID == 3){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE CATEGORY*/
+        function deleteBlogCategory(bos) {
+            var msg = "Are you sure you want to remove the selected Blog Category? You can always recover the category at a later stage.";
+            if (confirm(msg)) {
+                eval('document.delete_blog_category'+bos+'.method = "post"');
+                eval('document.delete_blog_category'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_blog_category'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+		/* CAN'T REMOVE CATEGORY */
+		function noDeleteCategory(){
+			alert("The selected Blog Category can't be removed as there are blog posts linked to it. Remove all the blog posts inside the category and try again.");
+		}
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*RECOVER CATEGORY*/
+        function recoverBlogCategory(bos) {
+            var msg = "Are you sure you want to recover the selected Blog Category?";
+            if (confirm(msg)) {
+                eval('document.recover_blog_category'+bos+'.method = "post"');
+                eval('document.recover_blog_category'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_blog_category'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        /*REMOVE BLOG POST*/
+        function deleteBlogPost(bos) {
+            var msg = "Are you sure you want to remove the selected Blog Post? You can always recover the user at a later stage.";
+            if (confirm(msg)) {
+                eval('document.delete_blog_post'+bos+'.method = "post"');
+                eval('document.delete_blog_post'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_blog_post'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*RECOVER BLOG POST*/
+        function deletePermanentlyBlogPost(bos) {
+            var msg = "Are you sure you want to delete the selected Blog Post permanently? Once it is gone it can't be recovered!";
+            if (confirm(msg)) {
+                eval('document.delete_permanently_blog_post'+bos+'.method = "post"');
+                eval('document.delete_permanently_blog_post'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_permanently_blog_post'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        /*RECOVER BLOG POST*/
+        function recoverBlogPost(bos) {
+            var msg = "Are you sure you want to recover the selected Blog Post?";
+            if (confirm(msg)) {
+                eval('document.recover_blog_post'+bos+'.method = "post"');
+                eval('document.recover_blog_post'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_blog_post'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        /*REMOVE PARAGRAPH*/
+        function deleteParagraph(bos) {
+            var msg = "Are you sure you want to remove the selected Paragraph? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_paragraph'+bos+'.method = "post"');
+                eval('document.delete_paragraph'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_paragraph'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*REMOVE GALLERY*/
+        function deleteGallery(bos) {
+            var msg = "Are you sure you want to remove the selected Gallery? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_gallery'+bos+'.method = "post"');
+                eval('document.delete_gallery'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_gallery'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

@@ -1,0 +1,218 @@
+<?php if($feedback_messages_load_more == 1){?>
+<!-- VIEW MORE FEEDBACK MESSAGES JAVASCRIPT BEGIN-->
+<script type="text/javascript" language="javascript">
+$(function(){
+   var page = 1;
+   var pages = $("#pages-feedback-messages").val(); //TOTAL NUMBER OF PAGES
+
+   $("#recent-feedback-messages").load("<?php echo $cms_root ?>ajax/ajax.fetchFeedbackMessages.php");
+
+   //WHEN THE 'LOAD MORE' BUTTON IS PRESSED
+   $("#loadmore-feedback-messages").click(function(){
+
+     //HIDE LOAD MORE BUTTON
+     $('#loadmore-feedback-messages').hide();
+
+     //SHOW PRELOADER
+     $("#loader-feedback-messages").show();
+
+     var next = page+=1;
+
+     $.get("<?php echo $cms_root ?>ajax/ajax.fetchFeedbackMessages.php?page="+next+"&f=<?php echo $field; ?>", function(data){
+       //HIDE PRELOADER
+       $("#loader-feedback-messages").hide();
+
+       //SHIW LOAD MORE BUTTON
+       $('#loadmore-feedback-messages').show();
+
+       if(next==pages){
+         $("#loadmore-feedback-messages").remove(); //IF ALL PAGES ARE LOADED, THE BUTTON WILL BE REMOVED
+       }
+
+       $("#recent-feedback-messages").append(data); //LOADS THE NEW PAGE OF CONTENT UNDER THE REST
+
+     });
+   });
+});
+</script>
+<!-- VIEW MORE FEEDBACK MESSAGES JAVASCRIPT END-->
+<?php }?>
+
+<?php if($showFeedbackCharts == 1){ ?>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/chartjs/Chart.js"></script>
+<script type="text/javascript">
+    //CHART JS LIBRARY
+
+    //#######################
+    //LINE CHARTS
+    //#######################
+    <?php
+    //GET THE DEFAULT DATA INFORMATION FROM DATABASE
+    $results = $feedbackManager->getDefaultGraphInfo();
+    //EXPLODE RESULT TO GET VALUES
+    $explode = explode("::", $results);
+    $visit              = $explode[0];
+    $findWhatNeeded     = $explode[1];
+    $easyFindInfo       = $explode[2];
+    $professional       = $explode[3];
+    $informative        = $explode[4];
+    $visuallyPleasing   = $explode[5];
+    $visitAgain         = $explode[6];
+    ?>
+    //##############################################
+    //SET VALUES FOR VISIT BAR CHART
+    var visitData = {
+    	labels : ["Yes", "No"],
+    	datasets: [
+    		{
+    			label: "My First dataset",
+    			fillColor: "rgba(0,156,235,0.6)",
+    			strokeColor: "rgba(0,139,209,0.6)",
+    			highlightFill : "rgba(0,156,235,0.3)",
+    			highlightStroke : "rgba(0,139,209,0.3)",
+    			data: [<?php echo $visit;?>],
+    		}
+
+    	]
+
+    }
+
+    var visit = document.getElementById("visitBarChart").getContext("2d");
+    window.myVisits = new Chart(visit).Bar(visitData,{bezierCurve: false, scaleBeginAtZero: true});
+    //##############################################
+
+    //##############################################
+    //SET VALUES FOR FIND BAR CHART
+    var findData = {
+    	labels : ["Yes, all of it", "Yes, some of it", "No, none of it"],
+    	datasets: [
+    		{
+    			label: "My First dataset",
+    			fillColor: "rgba(255,99,132,0.6)",
+    			strokeColor: "rgba(255,99,132,0.6)",
+    			highlightFill : "rgba(255,99,132,0.3)",
+    			highlightStroke : "rgba(255,99,132,0.3)",
+    			data: [<?php echo $findWhatNeeded;?>],
+    		}
+
+    	]
+
+    }
+
+    var find = document.getElementById("findBarChart").getContext("2d");
+    window.myFinds = new Chart(find).Bar(findData,{bezierCurve: false, scaleBeginAtZero: true});
+    //##############################################
+
+    //##############################################
+    //SET VALUES FOR EASY FIND BAR CHART
+    var easyFindData = {
+    	labels : ["Very Easy", "Easy", "Average", "Difficult", "Very Difficult"],
+    	datasets: [
+    		{
+    			label: "My First dataset",
+    			fillColor: "rgba(255,159,64,0.6)",
+    			strokeColor: "rgba(255,159,64,0.6)",
+    			highlightFill : "rgba(255,159,64,0.3)",
+    			highlightStroke : "rgba(255,159,64,0.3)",
+    			data: [<?php echo $easyFindInfo;?>],
+    		}
+
+    	]
+
+    }
+
+    var easyFind = document.getElementById("easyFindBarChart").getContext("2d");
+    window.myEasyFinds = new Chart(easyFind).Bar(easyFindData,{bezierCurve: false, scaleBeginAtZero: true});
+    //##############################################
+
+    //##############################################
+    //SET VALUES FOR PROFESSIONAL BAR CHART
+    var professionalData = {
+    	labels : ["Exceeds Expectations", "Meets Expectations", "Below Expectations"],
+    	datasets: [
+    		{
+    			label: "My First dataset",
+    			fillColor: "rgba(55,205,86,0.6)",
+    			strokeColor: "rgba(55,205,86,0.6)",
+    			highlightFill : "rgba(55,205,86,0.3)",
+    			highlightStroke : "rgba(55,205,86,0.3)",
+    			data: [<?php echo $professional;?>],
+    		}
+
+    	]
+
+    }
+
+    var professional = document.getElementById("professionalBarChart").getContext("2d");
+    window.professionalFinds = new Chart(professional).Bar(professionalData,{bezierCurve: false, scaleBeginAtZero: true});
+    //##############################################
+
+    //##############################################
+    //SET VALUES FOR INFORMATIVE BAR CHART
+    var informativeData = {
+    	labels : ["Exceeds Expectations", "Meets Expectations", "Below Expectations"],
+    	datasets: [
+    		{
+    			label: "My First dataset",
+    			fillColor: "rgba(75,192,192,0.6)",
+    			strokeColor: "rgba(75,192,192,0.6)",
+    			highlightFill : "rgba(75,192,192,0.3)",
+    			highlightStroke : "rgba(75,192,192,0.3)",
+    			data: [<?php echo $informative;?>],
+    		}
+
+    	]
+
+    }
+
+    var informative = document.getElementById("informativeBarChart").getContext("2d");
+    window.informativeFinds = new Chart(informative).Bar(informativeData,{bezierCurve: false, scaleBeginAtZero: true});
+    //##############################################
+
+    //##############################################
+    //SET VALUES FOR VISUALLY PLEASING BAR CHART
+    var visuallyPleasingData = {
+    	labels : ["Exceeds Expectations", "Meets Expectations", "Below Expectations"],
+    	datasets: [
+    		{
+    			label: "My First dataset",
+    			fillColor: "rgba(153,102,255,0.6)",
+    			strokeColor: "rgba(153,102,255,0.6)",
+    			highlightFill : "rgba(153,102,255,0.3)",
+    			highlightStroke : "rgba(153,102,255,0.3)",
+    			data: [<?php echo $visuallyPleasing;?>],
+    		}
+
+    	]
+
+    }
+
+    var visuallyPleasing = document.getElementById("visuallyPleasingBarChart").getContext("2d");
+    window.visuallyPleasingFinds = new Chart(visuallyPleasing).Bar(visuallyPleasingData,{bezierCurve: false, scaleBeginAtZero: true});
+    //##############################################
+
+    //##############################################
+    //SET VALUES FOR VISIT AGAIBN BAR CHART
+    var visitAgainData = {
+    	labels : ["Extremely likely", "Very likely", "Moderately likely", "Slightly likely", " Not at all likely"],
+    	datasets: [
+    		{
+    			label: "My First dataset",
+    			fillColor: "rgba(201,203,207,0.6)",
+    			strokeColor: "rgba(201,203,207,0.6)",
+    			highlightFill : "rgba(201,203,207,0.3)",
+    			highlightStroke : "rgba(201,203,207,0.3)",
+    			data: [<?php echo $visitAgain;?>],
+    		}
+
+    	]
+
+    }
+
+    var visitAgain = document.getElementById("visitAgainBarChart").getContext("2d");
+    window.visitAgainFinds = new Chart(visitAgain).Bar(visitAgainData,{bezierCurve: false, scaleBeginAtZero: true});
+    //##############################################
+
+</script>
+<?php } ?>

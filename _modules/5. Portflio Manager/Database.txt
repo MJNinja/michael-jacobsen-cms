@@ -1,0 +1,78 @@
+CREATE TABLE IF NOT EXISTS `portfolio` (
+  `portfolioID` int(11) NOT NULL AUTO_INCREMENT,
+  `websiteName` varchar(255) NOT NULL,
+  `websiteLink` varchar(255) NOT NULL,
+  `url` text NOT NULL,
+  `coverImage` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`portfolioID`)
+);
+
+CREATE TABLE IF NOT EXISTS `portfolio_content` (
+  `portfolioContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `portfolioID` int(11) DEFAULT '0',
+  `paragraphTitle` varchar(255) DEFAULT NULL,
+  `paragraph` text,
+  `imageFile` varchar(255) DEFAULT NULL,
+  `imageTitle` varchar(255) DEFAULT NULL,
+  `documentFile` varchar(255) DEFAULT NULL,
+  `documentTitle` varchar(255) DEFAULT NULL,
+  `videoUrl` varchar(255) DEFAULT NULL,
+  `portfolioGalleryID` int(11) DEFAULT '0',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `sequence` int(11) DEFAULT '0',
+  PRIMARY KEY (`portfolioContentID`)
+);
+
+CREATE TABLE IF NOT EXISTS `portfolio_gallery` (
+  `portfolioGalleryID` int(11) NOT NULL,
+  `portfolioID` int(11) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`portfolioGalleryID`)
+);
+
+CREATE TABLE IF NOT EXISTS `portfolio_gallery_content` (
+  `portfolioGalleryContentID` int(11) NOT NULL,
+  `portfolioGalleryID` int(11) NOT NULL,
+  `galleryImageFile` varchar(255) NOT NULL,
+  `galleryImageTitle` varchar(255) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  `sequence` int(11) NOT NULL,
+  PRIMARY KEY (`portfolioGalleryContentID`)
+);
+
+CREATE TABLE IF NOT EXISTS `portfolio_views` (
+  `portfolioID` int(11) NOT NULL,
+  `portfolioViewsMonth` varchar(255) NOT NULL,
+  `portfolioViewsYear` int(11) NOT NULL,
+  `portfolioViews` int(11) NOT NULL
+);
+
+ALTER TABLE `meta_details` ADD `portfolio` INT NULL DEFAULT '0';
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`) VALUES
+(5, 'portfolio-icon.png', 'Portfolio Manager', '', 'portfolio-manager/');

@@ -1,0 +1,34 @@
+CREATE TABLE IF NOT EXISTS `galleries` (
+  `galleryID` int(11) NOT NULL AUTO_INCREMENT,
+  `galleryName` varchar(255) NOT NULL,
+  `galleryDescription` text NOT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`galleryID`)
+);
+
+CREATE TABLE IF NOT EXISTS `galleries_images` (
+  `galleryImageID` int(11) NOT NULL AUTO_INCREMENT,
+  `galleryID` int(11) DEFAULT '0',
+  `galleryImageTitle` varchar(255) DEFAULT NULL,
+  `galleryImageFile` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `sequence` int(11) DEFAULT '0',
+  PRIMARY KEY (`galleryImageID`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`, `moduleRights`) VALUES
+(16, 'gallery-icon.png', 'Gallery Manager', 'The Gallery Manager allows you to manage all the galleries you have added to your website.', 'gallery-manager/', 1);
+

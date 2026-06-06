@@ -1,0 +1,135 @@
+<?php if($blog_post_tags == 1){?>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/tag-it/js/tag-it.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+        var category_tags = ',';
+
+        //ACTIVATE TAGS FOR CATEGORIES
+        $("#category_tags").tagit({
+            //GET AVAILABLE TAGS
+            availableTags: [<?php echo $blogManager->getAllBlogCategories();?>],
+            //CHECKS TAGS BEFORE THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            beforeTagAdded: function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            afterTagAdded : function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE REMOVED AND INSERT VALUES INTO INPUT FIELD
+            afterTagRemoved: function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            }
+        });
+
+    });
+</script>
+<?php }?>
+
+<?php if($removed_blog_category == 1){?>
+<script type="text/javascript" language="javascript">
+var category_name 	= $('input[name=category-name]').val();
+var category_type	= $('input[name=category-type]').val();
+
+//OPEN COLORBOX MODAL
+$.colorbox({html:'<div class="modal-windows-holder"><div class="modal-name">Re-activate Old Category</div><div class="modal-message"><p>The <b>Category Name</b> you supplied is currently used by another category which is inactive.</p><p>If you wish you can reactive the category and all its blog posts, if there any, inside the category. This will then show the all the blog posts on the website again.</p><br /><p class="modal-question">Re-activate Category Status?</p><br /></div><form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data"><input type="hidden" name="category-name" value="'+ category_name +'"/><input type="hidden" name="category-type" value="'+ category_type +'"/><input type="submit" class="modal-left-link" name="reactivate-category-status" title="Yes, overwrite old category" value="Yes, re-activate old category"><input type="button" class="modal-right-link" name="cancel-overright-category-status" title="No, leave old category as is" value="No, leave old category as is"></form></div>', top: '100px'});
+
+
+//DON'T OVERWRITE BLOG CATEGORY INFO
+$('input[name=cancel-overright-category-status]').click(function(){
+	$.colorbox.close();
+})
+
+</script>
+<?php }?>
+
+<?php if($removed_blog_post == 1){?>
+<script type="text/javascript" language="javascript">
+var blogCatID			= $('input[name=blogCatID]').val();
+var blog_post_title 	= $('input[name=blog-post-title]').val();
+var blog_post_intro		= $('textarea[name=blog-post-intro]').val();
+var blog_post_date		= $('input[name=blog-post-date]').val();
+var blog_post_time		= $('input[name=blog-post-time]').val();
+var blog_post_paragraph	= $('textarea[name=blog-post-paragraph]').val();
+var blog_post_date2		= $('input[name=blog-post-date2]').val();
+var blog_post_author    = $('input[name=blog-post-author]').val();
+
+//OPEN COLORBOX MODAL
+$.colorbox({html:'<div class="modal-windows-holder"><div class="modal-name">Re-activate Old Blog Post</div><div class="modal-message"><p>The <b>Blog Post Title</b> you supplied is currently in use but is inactive.</p><p>If you wish you can reactive the blog post and link it to this category.</p><br /><p class="modal-question">Re-activate Old Blog Post?</p><br /></div><form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data"><input type="hidden" name="blogCatID" value="'+ blogCatID +'"/><input type="hidden" name="blog-post-title" value="'+ blog_post_title +'"/><input type="hidden" name="blog-post-intro" value="'+ blog_post_intro +'"/><input type="hidden" name="blog-post-date" value="'+ blog_post_date +'"/><input type="hidden" name="blog-post-time" value="'+ blog_post_time +'"/><input type="hidden" name="blog-post-paragraph" value="'+ blog_post_paragraph +'"/><input type="hidden" name="blog-post-date2" value="'+ blog_post_date2 +'"/><input type="hidden" name="blog-post-author" value="'+ blog_post_author +'"/><input type="submit" class="modal-left-link" name="reactivate-blog-post-status" title="Yes, overwrite old blog post" value="Yes, re-activate old blog post">	<input type="button" class="modal-right-link" name="cancel-overright-blog-post-status" title="No, leave old blog post as is" value="No, leave old blog post as is"></form></div>', top: '100px'});
+
+
+//DON'T OVERWRITE BLOG POST INFO
+$('input[name=cancel-overright-blog-post-status]').click(function(){
+	$.colorbox.close();
+})
+
+</script>
+<?php }?>
+
+<?php if($blog_post_load_more == 1){?>
+<!-- VIEW MORE BLOG POSTS JAVASCRIPT BEGIN-->
+<script type="text/javascript" language="javascript">
+$(function(){
+   var page = 1;
+   var pages = $("#pages-blog-posts").val(); //TOTAL NUMBER OF PAGES
+
+   $("#recent-blog-posts").load("<?php echo $cms_root ?>ajax/ajax.fetchBlogPosts.php");
+
+   //WHEN THE 'LOAD MORE' BUTTON IS PRESSED
+   $("#loadmore-blog-posts").click(function(){
+
+     //HIDE LOAD MORE BUTTON
+     $('#loadmore-blog-posts').hide();
+
+     //SHOW PRELOADER
+     $("#loader-blog-posts").show();
+
+     var next = page+=1;
+
+     $.get("<?php echo $cms_root ?>ajax/ajax.fetchBlogPosts.php?page="+next, function(data){
+       //HIDE PRELOADER
+       $("#loader-blog-posts").hide();
+
+       //SHIW LOAD MORE BUTTON
+       $('#loadmore-blog-posts').show();
+
+       if(next==pages){
+         $("#loadmore-blog-posts").remove(); //IF ALL PAGES ARE LOADED, THE BUTTON WILL BE REMOVED
+       }
+
+       $("#recent-blog-posts").append(data); //LOADS THE NEW PAGE OF CONTENT UNDER THE REST
+
+     });
+   });
+});
+</script>
+<!-- VIEW MORE BLOG POSTS JAVASCRIPT END-->
+<?php }?>

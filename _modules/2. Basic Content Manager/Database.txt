@@ -1,0 +1,70 @@
+CREATE TABLE IF NOT EXISTS `basic_pages` (
+  `pageID` int(11) NOT NULL AUTO_INCREMENT,
+  `mainPageID` int(11) NOT NULL,
+  `moduleID` int(11) NOT NULL,
+  `navLevel` int(11) NOT NULL,
+  `hasSubPages` int(11) DEFAULT '0',
+  `footerLink` int(11) DEFAULT '0',
+  `pageName` varchar(255) NOT NULL,
+  `pageTitle` varchar(255) NOT NULL,
+  `pageLink` varchar(255) NOT NULL,
+  `dontShow` int(11) NOT NULL,
+  `sequence` int(11) NOT NULL,
+  PRIMARY KEY (`pageID`)
+);
+
+CREATE TABLE IF NOT EXISTS `basic_pages_content` (
+  `pageContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `pageID` int(11) NOT NULL,
+  `paragraphTitle` varchar(255) NOT NULL,
+  `paragraph` text NOT NULL,
+  `imageFile` varchar(255) DEFAULT NULL,
+  `imageTitle` varchar(255) NOT NULL,
+  `documentFile` varchar(255) DEFAULT NULL,
+  `documentTitle` varchar(255) NOT NULL,
+  `videoUrl` varchar(255) NOT NULL,
+  `basicPagesGalleryID` int(11) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  `sequence` int(11) NOT NULL,
+  PRIMARY KEY (`pageContentID`)
+);
+
+CREATE TABLE IF NOT EXISTS `basic_pages_gallery` (
+  `basicPagesGalleryID` int(11) NOT NULL AUTO_INCREMENT,
+  `pageID` int(11) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`basicPagesGalleryID`)
+);
+
+CREATE TABLE IF NOT EXISTS `basic_pages_gallery_content` (
+  `basicPagesGalleryContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `basicPagesGalleryID` int(11) NOT NULL,
+  `galleryImageFile` varchar(255) NOT NULL,
+  `galleryImageTitle` varchar(255) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` int(11) NOT NULL,
+  `sequence` int(11) NOT NULL,
+  PRIMARY KEY (`basicPagesGalleryContentID`)
+);
+
+ALTER TABLE `meta_details` ADD `pageID` INT NULL DEFAULT '0';
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`, `moduleRights`) VALUES
+(2, 'basic-content-icon.png', 'Basic Content Manager', 'The Basic Content Manager allows you to manage the content that is shown on pages of your website.', 'basic-content-manager/', 1);

@@ -1,0 +1,17 @@
+<?php if($removed_faq == 1){?>
+<script type="text/javascript" language="javascript">
+var faq_question	    = $('input[name=faq-question]').val();
+var paragraph	        = $('textarea[name=paragraph]').val();
+
+var faq_type            = $('input[name=faq-type]').val();
+
+//OPEN COLORBOX MODAL
+$.colorbox({html:'<div class="modal-windows-holder"><div class="modal-name">Re-activate Old FAQ</div><div class="modal-message"><p>The <b>FAQ Question</b> you supplied is currently used by another FAQ which is inactive.</p><p>If you wish you can reactive the FAQ.</p><br /><p class="modal-question">Re-activate FAQ Status?</p><br /></div><form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data"><input type="hidden" name="faq-question" value="'+ faq_question +'"/><input type="hidden" name="paragraph" value="'+ paragraph +'"/><input type="hidden" name="faq-type" value="'+ faq_type +'"/><input type="submit" class="modal-left-link" name="reactivate-faq-status" title="Yes, overwrite old FAQ" value="Yes, re-activate old FAQ"><input type="button" class="modal-right-link" name="cancel-overright-FAQ-status" title="No, leave old FAQ as is" value="No, leave old FAQ as is"></form></div>', top: '100px'});
+
+//DON'T OVERWRITE TUTORIAL PLAYLIST INFO
+$('input[name=cancel-overright-FAQ-status]').click(function(){
+	$.colorbox.close();
+})
+
+</script>
+<?php }?>

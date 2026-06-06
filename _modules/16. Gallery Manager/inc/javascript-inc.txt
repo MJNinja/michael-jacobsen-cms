@@ -1,0 +1,18 @@
+<?php if($removed_gallery == 1){?>
+<script type="text/javascript" language="javascript">
+var gallery_name	    = $('input[name=gallery-name]').val();
+var paragraph	        = $('textarea[name=paragraph]').val();
+
+var gallery_type        = $('input[name=gallery-type]').val();
+
+//OPEN COLORBOX MODAL
+$.colorbox({html:'<div class="modal-windows-holder"><div class="modal-name">Re-activate Old Gallery</div><div class="modal-message"><p>The <b>Gallery Name</b> you supplied is currently inactive.</p><p>If you wish you can reactive the gallery.</p><br /><p class="modal-question">Re-activate Gallery Status?</p><br /></div><form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data"><input type="hidden" name="gallery-name" value="'+ gallery_name +'"/><input type="hidden" name="paragraph" value="'+ paragraph +'"/><input type="hidden" name="gallery-type" value="'+ gallery_type +'"/><input type="submit" class="modal-left-link" name="reactivate-gallery-status" title="Yes, overwrite old gallery" value="Yes, re-activate old gallery"><input type="button" class="modal-right-link" name="cancel-overright-gallery-status" title="No, leave old gallery as is" value="No, leave old gallery as is"></form></div>', top: '100px'});
+
+
+//DON'T OVERWRITE TUTORIAL PLAYLIST INFO
+$('input[name=cancel-overright-gallery-status]').click(function(){
+	$.colorbox.close();
+})
+
+</script>
+<?php }?>

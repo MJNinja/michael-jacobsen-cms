@@ -1,0 +1,39 @@
+<?php if($moduleID == 10){ ?>
+    <script type="text/javascript" language="javascript">
+        /*REMOVE INSTITUTION*/
+        function deleteInstitution(bos) {
+            var msg = "Are you sure you want to remove the selected Institution? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_institution'+bos+'.method = "post"');
+                eval('document.delete_institution'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_institution'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+
+		/*REMOVE WORK PLACE*/
+        function deleteWorkPlace(bos) {
+            var msg = "Are you sure you want to remove the selected Work Place? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_work_place'+bos+'.method = "post"');
+                eval('document.delete_work_place'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_work_place'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+
+		/*REMOVE SKILL*/
+        function deleteSkill(bos) {
+            var msg = "Are you sure you want to remove the selected Skill? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_skill'+bos+'.method = "post"');
+                eval('document.delete_skill'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_skill'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

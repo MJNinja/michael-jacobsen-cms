@@ -1,0 +1,29 @@
+<?php if($moduleID == 19){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE FAQ*/
+        function deleteFAQ(bos) {
+            var msg = "Are you sure you want to remove the selected FAQ? You can always recover the FAQ at a later stage.";
+            if (confirm(msg)) {
+                eval('document.delete_faq'+bos+'.method = "post"');
+                eval('document.delete_faq'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_faq'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*RECOVER FAQ*/
+        function recoverFAQ(bos) {
+            var msg = "Are you sure you want to recover the selected FAQ?";
+            if (confirm(msg)) {
+                eval('document.recover_faq'+bos+'.method = "post"');
+                eval('document.recover_faq'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_faq'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+<?php } ?>

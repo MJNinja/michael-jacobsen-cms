@@ -1,0 +1,113 @@
+CREATE TABLE IF NOT EXISTS `blog_authors` (
+  `authorID` int(11) NOT NULL AUTO_INCREMENT,
+  `authorName` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`authorID`)
+);
+
+CREATE TABLE IF NOT EXISTS `blog_category` (
+  `blogCatID` int(11) NOT NULL AUTO_INCREMENT,
+  `categoryName` varchar(255) DEFAULT NULL,
+  `categoryDescription` text,
+  `catImageTitle` varchar(255) DEFAULT NULL,
+  `catImage` varchar(255) DEFAULT NULL,
+  `views` int(11) DEFAULT '0',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`blogCatID`)
+);
+
+CREATE TABLE IF NOT EXISTS `blog_post_content` (
+  `blogPostContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `blogPostID` int(11) DEFAULT '0',
+  `paragraphTitle` varchar(255) DEFAULT NULL,
+  `paragraph` text,
+  `imageFile` varchar(255) DEFAULT NULL,
+  `imageTitle` varchar(255) DEFAULT NULL,
+  `documentFile` varchar(255) DEFAULT NULL,
+  `documentTitle` varchar(255) DEFAULT NULL,
+  `videoUrl` varchar(255) DEFAULT NULL,
+  `blogPostGalleryID` int(11) DEFAULT '0',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `sequence` int(11) DEFAULT '0',
+  PRIMARY KEY (`blogPostContentID`)
+);
+
+CREATE TABLE IF NOT EXISTS `blog_post_gallery` (
+  `blogPostGalleryID` int(11) NOT NULL AUTO_INCREMENT,
+  `blogPostID` int(11) DEFAULT '0',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`blogPostGalleryID`)
+);
+
+CREATE TABLE IF NOT EXISTS `blog_post_gallery_content` (
+  `blogPostGalleryContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `blogPostGalleryID` int(11) DEFAULT '0',
+  `galleryImageFile` varchar(255) DEFAULT NULL,
+  `galleryImageTitle` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `sequence` int(11) DEFAULT '0',
+  PRIMARY KEY (`blogPostGalleryContentID`)
+);
+
+CREATE TABLE IF NOT EXISTS `blog_posts` (
+  `blogPostID` int(11) NOT NULL AUTO_INCREMENT,
+  `blogCatID` text,
+  `blogPostTitle` varchar(255) DEFAULT NULL,
+  `blogPostIntro` text,
+  `blogPostImageFile` varchar(255) DEFAULT NULL,
+  `blogPostImageTitle` varchar(255) DEFAULT NULL,
+  `publishDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `affiliateIDs` text,
+  `authorID` int(11) DEFAULT '0',
+  `views` int(11) DEFAULT '0',
+  `url` text,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`blogPostID`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`) VALUES
+(3, 'blog-icon.png', 'Blog Manager', 'The Blog Manager allows you to manage all your blog categories as well as your blog posts that are on your website.', 'blog-manager/');
+
+ALTER TABLE `meta_details` ADD `blogPostID` INT NULL DEFAULT '0';
+
+ALTER TABLE `meta_details` ADD `blogCatID` INT NULL DEFAULT '0';
+
+ALTER TABLE `search_index` ADD `blogPostID` INT NULL DEFAULT '0';
+
+ALTER TABLE `search_termresults` ADD `blogPostID` INT NULL DEFAULT '0';

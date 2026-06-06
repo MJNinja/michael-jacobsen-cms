@@ -1,0 +1,33 @@
+CREATE TABLE IF NOT EXISTS `affiliate` (
+  `affiliateID` int(11) NOT NULL,
+  `affCatID` int(11) NOT NULL,
+  `affTitle` varchar(255) NOT NULL,
+  `affDescription` text NOT NULL,
+  `imageFile` varchar(255) NOT NULL,
+  `imageTitle` varchar(255) NOT NULL,
+  `affLink` text NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`affiliateID`)
+);
+
+CREATE TABLE IF NOT EXISTS `affiliate_category` (
+  `affCatID` int(11) NOT NULL,
+  `affCatName` text NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`affCatID`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`) VALUES
+(4, 'affiliate-icon.png', 'Affiliate Manager', '', 'affiliates-manager/');

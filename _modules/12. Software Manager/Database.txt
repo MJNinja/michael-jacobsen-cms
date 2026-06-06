@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS `softwares` (
+  `softwareID` int(11) NOT NULL AUTO_INCREMENT,
+  `softwareName` varchar(255) NOT NULL,
+  `softwareImage` varchar(255) NOT NULL,
+  `softwareImageName` varchar(255) NOT NULL,
+  `softwareLink` text NOT NULL,
+  `softwareDescription` text NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`softwareID`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`, `moduleRights`) VALUES
+(12, 'software-icon.png', 'Software Manager', 'The Software Manager allows you to manage all the softwares you have added to your website.', 'software-manager/', 1);
+

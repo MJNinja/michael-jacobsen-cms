@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS `faq` (
+  `faqID` int(11) NOT NULL AUTO_INCREMENT,
+  `faqQuestions` varchar(255) NOT NULL,
+  `faqAnswer` text NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`faqID`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`, `moduleRights`) VALUES
+(19, 'faq-icon.png', 'FAQ Manager', "The FAQ Manager allows you to manage all the FAQ's you have added to your website.", 'faq-manager/', 1);
+

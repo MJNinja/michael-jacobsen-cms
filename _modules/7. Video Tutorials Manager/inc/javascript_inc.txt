@@ -1,0 +1,193 @@
+<?php if($tutorial_tags == 1){?>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/tag-it/js/tag-it.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+        var category_tags = ',';
+        var required_software = ',';
+
+        <?php if($tutorial_affiliates_tags == 1){?>
+        var affiliate_tags = ',';
+        <?php }?>
+
+        //ACTIVATE TAGS FOR CATEGORIES
+        $("#category_tags").tagit({
+            //GET AVAILABLE TAGS
+            availableTags: [<?php echo $videoTutorialManager->getAllVideoTutorialCategories();?>],
+            //CHECKS TAGS BEFORE THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            beforeTagAdded: function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            afterTagAdded : function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE REMOVED AND INSERT VALUES INTO INPUT FIELD
+            afterTagRemoved: function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            }
+        });
+
+        //ACTIVATE TAGS FOR SOFTWARES
+        $("#software_tags").tagit({
+            //GET AVAILABLE TAGS
+            availableTags: [<?php echo $videoTutorialManager->getAllSoftwares();?>],
+            //CHECKS TAGS BEFORE THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            beforeTagAdded: function() {
+                required_software = ',';
+                $("#software_tags li span.tagit-label").each(function(){
+                    required_software = required_software + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(required_software == ','){
+                    $('input[name=required-softwares]').val('');
+                }else{
+                    $('input[name=required-softwares]').val(required_software);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            afterTagAdded : function() {
+                required_software = ',';
+                $("#software_tags li span.tagit-label").each(function(){
+                    required_software = required_software + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(required_software == ','){
+                    $('input[name=required-softwares]').val('');
+                }else{
+                    $('input[name=required-softwares]').val(required_software);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE REMOVED AND INSERT VALUES INTO INPUT FIELD
+            afterTagRemoved: function() {
+                required_software = ',';
+                $("#software_tags li span.tagit-label").each(function(){
+                    required_software = required_software + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(required_software == ','){
+                    $('input[name=required-softwares]').val('');
+                }else{
+                    $('input[name=required-softwares]').val(required_software);
+                }
+            }
+        });
+
+        <?php if($tutorial_affiliates_tags == 1){?>
+        //ACTIVATE TAGS FOR AFFILIATE LINKS
+        $("#affiliate_tags").tagit({
+            //GET AVAILABLE TAGS
+            availableTags: [<?php echo $videoTutorialManager->getAllAffiliateLinks();?>],
+            //CHECKS TAGS BEFORE THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            beforeTagAdded: function() {
+                affiliate_tags = ',';
+                $("#affiliate_tags li span.tagit-label").each(function(){
+                    affiliate_tags = affiliate_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(affiliate_tags == ','){
+                    $('input[name=affiliates]').val('');
+                }else{
+                    $('input[name=affiliates]').val(affiliate_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            afterTagAdded : function() {
+                affiliate_tags = ',';
+                $("#affiliate_tags li span.tagit-label").each(function(){
+                    affiliate_tags = affiliate_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(affiliate_tags == ','){
+                    $('input[name=affiliates]').val('');
+                }else{
+                    $('input[name=affiliates]').val(affiliate_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE REMOVED AND INSERT VALUES INTO INPUT FIELD
+            afterTagRemoved: function() {
+                affiliate_tags = ',';
+                $("#affiliate_tags li span.tagit-label").each(function(){
+                    affiliate_tags = affiliate_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(affiliate_tags == ','){
+                    $('input[name=affiliates]').val('');
+                }else{
+                    $('input[name=affiliates]').val(affiliate_tags);
+                }
+            }
+        });
+
+        <?php }?>
+
+    });
+</script>
+<?php }?>
+
+<?php if($removed_tutorial_category == 1){?>
+<script type="text/javascript" language="javascript">
+var category_title 	= $('input[name=category-title]').val();
+var tutorial_type	= $('input[name=tutorial-type]').val();
+
+//OPEN COLORBOX MODAL
+$.colorbox({html:'<div class="modal-windows-holder"><div class="modal-name">Re-activate Old Category</div><div class="modal-message"><p>The <b>Category Name</b> you supplied is currently used by another category which is inactive.</p><p>If you wish you can reactive the category and all its Video Tutorial Playlists, if there any, inside the category. This will then show the all the Video Tutorial Playlists on the website again.</p><br /><p class="modal-question">Re-activate Category Status?</p><br /></div><form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data"><input type="hidden" name="category-title" value="'+ category_title +'"/><input type="hidden" name="tutorial-type" value="'+ tutorial_type +'"/><input type="submit" class="modal-left-link" name="reactivate-category-status" title="Yes, overwrite old category" value="Yes, re-activate old category"><input type="button" class="modal-right-link" name="cancel-overright-tutorial-category-status" title="No, leave old category as is" value="No, leave old category as is"></form></div>', top: '100px'});
+
+
+//DON'T OVERWRITE TUTORIAL CATEGORY INFO
+$('input[name=cancel-overright-tutorial-category-status]').click(function(){
+	$.colorbox.close();
+})
+
+</script>
+<?php }?>
+
+<?php if($removed_tutorial_playlist == 1){?>
+<script type="text/javascript" language="javascript">
+var playlist_name 	    = $('input[name=playlist-name]').val();
+var paragraph	        = $('textarea[name=paragraph]').val();
+var categories          = $('input[name=categories]').val();
+var required_softwares  = $('input[name=required-softwares]').val();
+var affiliates          = $('input[name=affiliates]').val();
+
+var date                = $('input[name=tutorial-playlist-date]').val();
+var image_type          = $('input[name=image-type]').val();
+
+//OPEN COLORBOX MODAL
+$.colorbox({html:'<div class="modal-windows-holder"><div class="modal-name">Re-activate Old Playlist</div><div class="modal-message"><p>The <b>Playlist Name</b> you supplied is currently used by another playlist which is inactive.</p><p>If you wish you can reactive the playlist and all its Videos inside the playlist. This will then show the Video Tutorial Playlists on the website again.</p><br /><p class="modal-question">Re-activate Playlist Status?</p><br /></div><form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data"><input type="hidden" name="date" value="'+ date +'"/><input type="hidden" name="image-type" value="'+ image_type +'"/><input type="hidden" name="playlist-name" value="'+ playlist_name +'"/><input type="hidden" name="paragraph" value="'+ paragraph +'"/><input type="hidden" name="categories" value="'+ categories +'"/><input type="hidden" name="required-softwares" value="'+ required_softwares +'"/><input type="hidden" name="affiliates" value="'+ affiliates +'"/><input type="submit" class="modal-left-link" name="reactivate-playlist-status" title="Yes, overwrite old playlist" value="Yes, re-activate old playlist"><input type="button" class="modal-right-link" name="cancel-overright-tutorial-playlist-status" title="No, leave old playlist as is" value="No, leave old playlist as is"></form></div>', top: '100px'});
+
+
+//DON'T OVERWRITE TUTORIAL PLAYLIST INFO
+$('input[name=cancel-overright-tutorial-playlist-status]').click(function(){
+	$.colorbox.close();
+})
+
+</script>
+<?php }?>

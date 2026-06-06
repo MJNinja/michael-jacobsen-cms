@@ -1,0 +1,79 @@
+CREATE TABLE IF NOT EXISTS `events` (
+  `eventID` int(11) NOT NULL AUTO_INCREMENT,
+  `eventTitle` varchar(255) DEFAULT NULL,
+  `eventImageFile` varchar(255) DEFAULT NULL,
+  `eventImageTitle` varchar(255) DEFAULT NULL,
+  `startDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `endDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `venue` varchar(255) DEFAULT NULL,
+  `views` int(11) DEFAULT '0',
+  `url` text,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`eventID`)
+);
+
+CREATE TABLE IF NOT EXISTS `event_gallery_content` (
+  `eventGalleryContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `eventGalleryID` int(11) DEFAULT '0',
+  `galleryImageFile` varchar(255) DEFAULT NULL,
+  `galleryImageTitle` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `sequence` int(11) DEFAULT '0',
+  PRIMARY KEY (`eventGalleryContentID`)
+);
+
+CREATE TABLE IF NOT EXISTS `event_gallery` (
+  `eventGalleryID` int(11) NOT NULL AUTO_INCREMENT,
+  `eventID` int(11) DEFAULT '0',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`eventGalleryID`)
+);
+
+CREATE TABLE IF NOT EXISTS `event_content` (
+  `eventContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `eventID` int(11) NOT NULL,
+  `paragraphTitle` varchar(255) NOT NULL,
+  `paragraph` text NOT NULL,
+  `imageTitle` varchar(255) NOT NULL,
+  `imageFile` varchar(255) NOT NULL,
+  `documentTitle` varchar(225) NOT NULL,
+  `documentFile` varchar(225) NOT NULL,
+  `videoUrl` varchar(255) NOT NULL,
+  `eventGalleryID` int(11) DEFAULT '0',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) NOT NULL DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `sequence` int(11) NOT NULL,
+  PRIMARY KEY (`eventContentID`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`) VALUES
+(21, 'event-icon.png', 'Events Manager', 'The Events Manager allows you to manage all your events that are on your website.', 'events-manager/');
+
+ALTER TABLE `meta_details` ADD `eventID` INT NULL DEFAULT '0';
+
+ALTER TABLE `search_index` ADD `eventID` INT NULL DEFAULT '0';
+
+ALTER TABLE `search_termresults` ADD `eventID` INT NULL DEFAULT '0';

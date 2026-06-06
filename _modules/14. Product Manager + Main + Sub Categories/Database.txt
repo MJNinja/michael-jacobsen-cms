@@ -1,0 +1,106 @@
+CREATE TABLE IF NOT EXISTS `product` (
+  `productID` int(11) NOT NULL AUTO_INCREMENT,
+  `productCatID` text,
+  `productMainCatID` text,
+  `productTitle` varchar(255) DEFAULT NULL,
+  `productIntro` text,
+  `productImageFile` varchar(255) DEFAULT NULL,
+  `productImageTitle` varchar(255) DEFAULT NULL,
+  `productSpecial` int(11) DEFAULT '0',
+  `productSpecialDate` date DEFAULT '0000-00-00',
+  `productPrice` varchar(255) DEFAULT NULL,
+  `productCode` varchar(255) DEFAULT NULL,
+  `productBrand` varchar(255) DEFAULT NULL,
+  `views` int(11) DEFAULT '0',
+  `url` text,
+  `manufacturerLink` text,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`productID`)
+);
+
+CREATE TABLE IF NOT EXISTS `product_category` (
+  `productCatID` int(11) NOT NULL AUTO_INCREMENT,
+  `productMainCatID` int(11) DEFAULT '0',
+  `categoryName` varchar(255) DEFAULT NULL,
+  `categoryDescription` text,
+  `catImageTitle` varchar(255) DEFAULT NULL,
+  `catImage` varchar(255) DEFAULT NULL,
+  `views` int(11) DEFAULT '0',
+  `url` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`productCatID`)
+);
+
+CREATE TABLE IF NOT EXISTS `product_content` (
+  `productContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `productID` int(11) DEFAULT '0',
+  `paragraphTitle` varchar(255) DEFAULT NULL,
+  `paragraph` text,
+  `imageFile` varchar(255) DEFAULT NULL,
+  `imageTitle` varchar(255) DEFAULT NULL,
+  `documentFile` varchar(255) DEFAULT NULL,
+  `documentTitle` varchar(255) DEFAULT NULL,
+  `videoUrl` varchar(255) DEFAULT NULL,
+  `productGalleryID` int(11) DEFAULT '0',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `sequence` int(11) DEFAULT '0',
+  PRIMARY KEY (`productContentID`)
+);
+
+CREATE TABLE IF NOT EXISTS `product_gallery` (
+  `productGalleryID` int(11) NOT NULL AUTO_INCREMENT,
+  `productID` int(11) DEFAULT '0',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`productGalleryID`)
+);
+
+CREATE TABLE IF NOT EXISTS `product_gallery_content` (
+  `productGalleryContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `productGalleryID` int(11) DEFAULT '0',
+  `galleryImageFile` varchar(255) DEFAULT NULL,
+  `galleryImageTitle` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `sequence` int(11) DEFAULT '0',
+  PRIMARY KEY (`productGalleryContentID`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`, `moduleRights`) VALUES
+(11, 'product-icon.png', 'Procust Manager', 'The Product Manager allows you to manage all your product categories as well as the products that are on your website.', 'product-manager/', 1);
+
+ALTER TABLE `meta_details` ADD `productID` INT NULL DEFAULT '0';
+
+ALTER TABLE `meta_details` ADD `productCatID` INT NULL DEFAULT '0';
+
+ALTER TABLE `search_index` ADD `productID` INT NULL DEFAULT '0';
+
+ALTER TABLE `search_termresults` ADD `productID` INT NULL DEFAULT '0';

@@ -1,0 +1,5 @@
+Cron Jobs Commands
+------------------
+0	3	*	*	0	/usr/local/bin/php /home/jacmatcc/public_html/library/cron.deleteOldCPanelBackups.php
+0	1	*	*	0	/usr/local/bin/php /home/jacmatcc/public_html/library/cron.fullCPanelBackup.php
+0	2	*	*	0	/usr/local/bin/php /home/jacmatcc/public_html/library/cron.moveCPanelBackups.php

@@ -1,0 +1,78 @@
+CREATE TABLE IF NOT EXISTS `personal_about` (
+  `about_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `surname` varchar(255) NOT NULL,
+  `tag_line` varchar(255) NOT NULL,
+  `occupation` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `personal_image_title` varchar(255) NOT NULL,
+  `personal_image` varchar(255) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`about_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `personal_education` (
+  `education_id` int(11) NOT NULL,
+  `about_id` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `education_place` varchar(255) NOT NULL,
+  `website` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  `sequence` int(11) NOT NULL,
+  PRIMARY KEY (`education_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `personal_skills` (
+  `skill_id` int(11) NOT NULL,
+  `about_id` int(11) NOT NULL,
+  `skill_name` varchar(255) NOT NULL,
+  `percentage` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  `sequence` int(11) NOT NULL,
+  PRIMARY KEY (`skill_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `personal_work` (
+  `work_id` int(11) NOT NULL,
+  `about_id` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `work_place` varchar(255) NOT NULL,
+  `website` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  `sequence` int(11) NOT NULL,
+  PRIMARY KEY (`work_id`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`) VALUES
+(10, 'employment-history-icon.png', 'Employment History Manager', '', 'employment-history-manager/');

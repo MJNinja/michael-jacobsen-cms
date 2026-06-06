@@ -1,0 +1,15 @@
+<?php if($moduleID == 8){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE BANNER*/
+        function deleteBanner(bos) {
+            var msg = "Are you sure you want to remove the selected Gallery? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_banner'+bos+'.method = "post"');
+                eval('document.delete_banner'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_banner'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

@@ -1,0 +1,143 @@
+CREATE TABLE IF NOT EXISTS `vac_listings` (
+  `vacID` int(11) NOT NULL AUTO_INCREMENT,
+  `type` int(11) DEFAULT '0',
+  `city` int(11) DEFAULT '0',
+  `category` int(11) DEFAULT '0',
+  `salary` int(11) DEFAULT '0',
+  `startDate` date DEFAULT '0000-00-00',
+  `endDate` date DEFAULT '0000-00-00',
+  `email` varchar(255) DEFAULT NULL,
+  `jobTitle` varchar(255) DEFAULT NULL,
+  `description` text,
+  `showForm` int(11) DEFAULT '0',
+  `creadtedBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) NOT NULL DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`vacID`)
+);
+
+CREATE TABLE IF NOT EXISTS `vac_categories` (
+  `value` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`value`)
+);
+
+INSERT INTO `vac_categories` (`value`, `name`) VALUES
+(10, 'Finance'),
+(11, 'Administration'),
+(12, 'Engineering'),
+(13, 'Part Time'),
+(14, 'Freelance'),
+(15, 'Design'),
+(16, 'Programming'),
+(17, 'Information Technology'),
+(18, 'Sales &amp Marketing'),
+(19, 'Banking'),
+(20, 'Legal'),
+(21, 'Education'),
+(22, 'Medical'),
+(23, 'Manufacturing'),
+(24, 'Domestic'),
+(25, 'Transporting'),
+(26, 'Science'),
+(27, 'Journalism'),
+(28, 'Hospitality'),
+(29, 'Secretarial'),
+(30, 'Mechanic'),
+(31, 'Logistics'),
+(32, 'Retail'),
+(33, 'Media'),
+(34, 'Beauty'),
+(35, 'Other'),
+(36, 'Security'),
+(37, 'Management'),
+(38, 'Travel'),
+(39, 'Tourism'),
+(40, 'Procurement'),
+(41, 'Human Resources'),
+(42, 'Construction'),
+(43, 'Electrician '),
+(44, 'Mining');
+
+CREATE TABLE IF NOT EXISTS `vac_city` (
+  `value` int(11) NOT NULL AUTO_INCREMENT,
+  `city` varchar(255) NOT NULL,
+  PRIMARY KEY (`value`)
+);
+
+INSERT INTO `vac_city` (`value`, `city`) VALUES
+(9, 'Gobabis'),
+(10, 'Grootfontein'),
+(11, 'Henties Bay'),
+(12, 'Karasburg'),
+(13, 'Karibib'),
+(14, 'Keetmanshoop'),
+(15, 'Mariental'),
+(16, 'Okahandja'),
+(17, 'Omaruru'),
+(18, 'Otjiwarongo'),
+(19, 'Outjo'),
+(20, 'Swakopmund'),
+(21, 'Tsumeb'),
+(22, 'Usakos'),
+(23, 'Walvis Bay'),
+(24, 'Windhoek'),
+(25, 'Arandis'),
+(26, 'Eenhana'),
+(27, 'Katimo Mulilo'),
+(28, 'Khorixas'),
+(29, 'L&#252;deritz'),
+(30, 'Nkurenkuru'),
+(31, 'Okakarara'),
+(32, 'Ondangwa'),
+(33, 'Ongwediva'),
+(34, 'Outapi'),
+(35, 'Opuwo'),
+(36, 'Oranjemund'),
+(37, 'Oshikango'),
+(38, 'Oshakati'),
+(39, 'Rehoboth'),
+(40, 'Ruacana'),
+(41, 'Kamanjab'),
+(42, 'Anywhere'),
+(43, 'Rundu'),
+(44, 'Rosh Pinah'),
+(45, 'International');
+
+CREATE TABLE IF NOT EXISTS `vac_job` (
+  `value` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) NOT NULL,
+  PRIMARY KEY (`value`)
+);
+
+INSERT INTO `vac_job` (`value`, `type`) VALUES
+(1, 'Full Time'),
+(2, 'Part Time'),
+(3, 'Freelance'),
+(4, 'Holiday Job');
+
+CREATE TABLE IF NOT EXISTS `vac_salary` (
+  `value` int(11) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) NOT NULL,
+  PRIMARY KEY (`value`)
+);
+
+INSERT INTO `vac_salary` (`value`, `description`) VALUES
+(1, 'N$ 1,- to N$ 3.000'),
+(2, 'N$ 3.001 to N$ 5.000'),
+(3, 'N$ 5.001 to N$ 8.000'),
+(4, 'N$ 8.001 to N$ 10.000'),
+(5, 'N$ 10.001 to N$ 15.000'),
+(6, 'N$ 15.001 to N$ 20.000'),
+(7, 'N$ 20.001 to N$ 35.000'),
+(8, 'N$ 35.001 to N$ 70.000'),
+(9, 'N$ 70.001 to N$ 120.000'),
+(10, 'Market Related Salary');
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`, `moduleRights`) VALUES
+(20, 'vacancy-icon.png', 'Vacancy Manager', 'The Vacancy Manager allows you to manage all the vacancies you have added to your website.', 'vacancy-manager/', 1);
+

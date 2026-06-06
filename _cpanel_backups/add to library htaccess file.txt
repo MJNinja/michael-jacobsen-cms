@@ -1,0 +1,9 @@
+<Files "cron.fullCPanelBackup.php">
+    Allow from all
+</Files>
+<Files "cron.moveCPanelBackups.php">
+    Allow from all
+</Files>
+<Files "cron.deleteOldCPanelBackups.php">
+    Allow from all
+</Files>

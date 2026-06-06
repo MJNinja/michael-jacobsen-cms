@@ -1,0 +1,3 @@
+<?php if($feedbackCurrentDate >= $feedback_start && $feedbackCurrentDate <= $feedback_end && $feedback_start != '0000-00-00' && $feedback_end != '0000-00-00'){ ?>
+<script type="text/javascript" src="<?php echo $web_root; ?>js/fbcc.min.js?u=<?php echo $cssjscacheclear;?>"></script>
+<?php } ?>

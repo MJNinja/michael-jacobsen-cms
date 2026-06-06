@@ -1,0 +1,95 @@
+//#################################################################
+//GET LOCATION INFO FROM IP ADDRESS
+//#################################################################
+function getLocationData($url) {
+	$ch = curl_init();
+	$timeout = 5;
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+	$data = curl_exec($ch);
+	curl_close($ch);
+	return $data;
+}
+
+//#################################################################
+//GET RECIPIENT EMAIL ADDRESSES
+//#################################################################
+function getRecipientsForForms($formID, $topicID){
+	//CONNECT TO DATABASE
+	$connector 	= new DbConnector();
+	$encryptDecrypt = new encryptDecrypt();
+
+	//DEFINE ENCRYPTION_KEY
+	define("ENCRYPTION_KEY", "%@#!^&$*");
+
+	//SET VARIABLES TO HOLD INFORMATION
+	$txt = '';
+	$count = 1;
+
+	//CHECK IF A TOPIC IS AVAILABLE
+	if($topicID != ''){
+		$topic_search = "OR topicID = '$topicID'";
+	}
+
+	//GET INFORMATION OUT OF DATABSE
+	$result	= $connector->query("SELECT * FROM forms_recipients WHERE formID = ? $topic_search AND deletedBy = ? ORDER BY fullname ASC", array($formID, '0'));
+	$total	= $connector->numResults($result);
+
+	//LOOP THROUGH RESULTS
+	while($row	= $connector->fetchArray($result)){
+
+		//DECRYPT EMAIL ADDRESS
+		$emailAddress   = $encryptDecrypt->decrypt($row['email'], ENCRYPTION_KEY);
+
+		if($count != $total){
+			$txt.= $emailAddress.',';
+			$count++;
+		}else{
+			$txt.= $emailAddress;
+			$count++;
+		}
+	}
+
+	return $txt;
+}
+
+$encryptDecrypt = new encryptDecrypt();
+
+//GET USERS IP ADDRESS
+if ($_SERVER['HTTP_CLIENT_IP']){
+	$ipOfUser = $_SERVER['HTTP_CLIENT_IP'];
+}elseif($_SERVER['HTTP_X_FORWARDED_FOR']){
+	$ipOfUser = $_SERVER['HTTP_X_FORWARDED_FOR'];
+}elseif($_SERVER['HTTP_X_FORWARDED']){
+	$ipOfUser = $_SERVER['HTTP_X_FORWARDED'];
+}else if($_SERVER['HTTP_FORWARDED_FOR']){
+	$ipOfUser = $_SERVER['HTTP_FORWARDED_FOR'];
+}else if($_SERVER['HTTP_FORWARDED']){
+	$ipOfUser = $_SERVER['HTTP_FORWARDED'];
+}else if($_SERVER['REMOTE_ADDR']){
+	$ipOfUser = $_SERVER['REMOTE_ADDR'];
+}else{
+	$ipOfUser = '';
+}
+
+//INSERT INFO FOR FORM INSIGHTS
+define("ENCRYPTION_KEY", "%@#!^&$*");
+
+$location_content	= json_decode($sendForm->getLocationData('http://ipinfo.io/'.$ipOfUser), true);
+$country			= $location_content['country'] ;
+$city				= $location_content['city'];
+
+$timestamp			= date('Y-m-d H:i:s');
+$encrypted_email 	= $encryptDecrypt->encrypt($email, ENCRYPTION_KEY);
+$encrypted_content 	= $encryptDecrypt->encrypt($message, ENCRYPTION_KEY);
+$fullname 			= $fullname;
+$browser			= $browserDetails->getBrowser($_SERVER['HTTP_USER_AGENT'], '');
+$operating_system 	= $browserDetails->getBrowser($_SERVER['HTTP_USER_AGENT'], 'platform');
+$lang_array 		= explode(",",$_SERVER['HTTP_ACCEPT_LANGUAGE']);
+$language 			= $lang_array[0];
+$topic				= $topic_id; //Get it from drop down list, if there is one, otherwise set to 0
+
+$info		= $connector->query("INSERT INTO forms_info (email, fullname, tel, city, country, date_time, topicID, browser, ipAddress, 	browserLanguage, operatingSystem, content, formID)
+								VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+								, array($encrypted_email, $fullname, $cell, $city, $country, $timestamp, $topic, $browser, $ipOfUser, $language, $operating_system, $encrypted_content, $form_id));

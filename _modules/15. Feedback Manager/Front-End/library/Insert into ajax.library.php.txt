@@ -1,0 +1,192 @@
+//#################################################
+	//GET FEEDBACK COOKIE VALUE
+	//#################################################
+	function getFeedbackCookieValue($fbcn, $fbpusc){
+		//CONNECT TO ENCRYPT/DECRYPT CLASS
+        $encryptDecrypt = new encryptDecrypt();
+
+        //DEFINE ENCRYPTION_KEY
+    	define("ENCRYPTION_KEY", "%@#!^&$*");
+
+        //DECRYPT COOKIE
+        $fbcd   = $encryptDecrypt->decrypt($_COOKIE[$fbcn], ENCRYPTION_KEY);
+        $fbpusc = $encryptDecrypt->decrypt($_COOKIE[$fbpusc], ENCRYPTION_KEY);
+
+        //EXPLODE RESULT
+        $cookieDataArray    = explode("#@#", $fbcd);
+        $cookieDataShow     = $cookieDataArray[0];
+
+        //RETURN FEEDBACK DATA
+        if($cookieDataShow == 'yes' || $cookieDataShow == 'no'){
+            return $fbcd.'#@#'.$fbpusc;
+        }else{
+            return ' ';
+        }
+	}
+
+    //#################################################
+	//CREATE FEEDBACK COOKIE
+	//#################################################
+	function createFeedbackCookie($fbcn){
+		//CONNECT TO ENCRYPT/DECRYPT CLASS
+        $encryptDecrypt = new encryptDecrypt();
+
+        //DEFINE ENCRYPTION_KEY
+    	define("ENCRYPTION_KEY", "%@#!^&$*");
+
+        //DEFAULT VARIABLE
+        $currentDateMilliseconds    = round(microtime(true) * 1000);
+
+        //DEFAULT VARIABLES
+        $cexpire    = 1;
+        $cname      = $fbcn;
+        $cvalue     = "yes#@#".$currentDateMilliseconds;
+
+        //ENCRYPT COOKIE
+        $cvalue = $encryptDecrypt->encrypt($cvalue, ENCRYPTION_KEY);
+
+        //CREATE COOKIE
+        setcookie($cname, $cvalue, time() + (86400 * $cexpire), "/"); // 86400 = 1 day
+	}
+
+    //#################################################
+	//CREATE FEEDBACK POP-UP SHOWN COOKIE
+	//#################################################
+	function createFeedbackPopUpShownCookie($fbpusc){
+		//CONNECT TO ENCRYPT/DECRYPT CLASS
+        $encryptDecrypt = new encryptDecrypt();
+
+        //DEFINE ENCRYPTION_KEY
+    	define("ENCRYPTION_KEY", "%@#!^&$*");
+
+        //DEFAULT VARIABLES
+        $cexpire    = 60;
+        $cname      = $fbpusc;
+        $cvalue     = "yes#@#".date('Y-m-d H:i:s');
+
+        //ENCRYPT COOKIE
+        $cvalue = $encryptDecrypt->encrypt($cvalue, ENCRYPTION_KEY);
+
+        //CREATE COOKIE
+        setcookie($cname, $cvalue, time() + (86400 * $cexpire), "/"); // 86400 = 1 day
+	}
+
+    //#################################################
+	//GET FEEDBACK COOKIE VALUE
+	//#################################################
+	function updateFeedbackCookie($fbcn){
+		//CONNECT TO ENCRYPT/DECRYPT CLASS
+        $encryptDecrypt = new encryptDecrypt();
+
+        //DEFINE ENCRYPTION_KEY
+    	define("ENCRYPTION_KEY", "%@#!^&$*");
+
+        //DECRYPT COOKIE
+        $fbcd = $encryptDecrypt->decrypt($_COOKIE[$fbcn], ENCRYPTION_KEY);
+
+        //EXPLODE RESULT
+        $cookieDataArray    = explode("#@#", $fbcd);
+        $cookieDataTime     = $cookieDataArray[1];
+
+        //DEFAULT VARIABLES
+        $cexpire    = 60;
+        $cname      = $fbcn;
+        $cvalue     = "no#@#".$cookieDataTime;
+
+        //ENCRYPT COOKIE
+        $cvalue = $encryptDecrypt->encrypt($cvalue, ENCRYPTION_KEY);
+
+        //DESTROY COOKIE
+        setcookie($cname, '', 1, "/");
+        unset($_COOKIE[$cname]);
+
+        //UPDATE COOKIE
+        setcookie($cname, $cvalue, time() + (86400 * $cexpire), "/");
+	}
+
+    //#################################################
+	//SAVE FEEDBACK DATA
+	//#################################################
+	function saveFeedback($visit, $reasonVisit, $findWhatNeeded, $whatLookingFor, $easyFindInfo, $professional, $informative, $visuallyPleasing, $visitAgain, $comments){
+		//CONNECT TO DATABASE
+		$connector 	= new DbConnector();
+
+        //DEFAULT VARIABLES
+        $currentDate    = date('d-m-Y H:i:s');
+
+        //SET DEFAULTS
+        if($whatLookingFor == '' || $whatLookingFor == ' '){
+            $whatLookingFor = '';
+        }
+        if($comments == '' || $comments == ' '){
+            $comments = '';
+        }
+
+        //INSERT FEEDBACK DATA INTO DATABASE
+        $insert = $connector->query("INSERT INTO form_feedback (visit, reasonVisit, findWhatNeeded, whatLookingFor, easyFindInfo, professional, informative, visuallyPleasing, visitAgain, comments, createdDate)
+                                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                                    , array($visit, $reasonVisit, $findWhatNeeded, $whatLookingFor, $easyFindInfo, $professional, $informative, $visuallyPleasing, $visitAgain, $comments, $currentDate));
+	}
+
+    //#################################################################
+	// GET SEND FEEDBACK EMAIL
+	//#################################################################
+	function sendFeedbackEmail($visit, $reasonVisit, $findWhatNeeded, $whatLookingFor, $easyFindInfo, $professional, $informative, $visuallyPleasing, $visitAgain, $comments, $form_id, $topicID, $web_root){
+		//CONNECT TO DATABASE
+		$connector 	= new DbConnector();
+
+        //GENEATE EMAIL
+        $emails     = $this->getRecipientsForForms($form_id, $topicID);
+
+		/*$to			= $emails
+		$subject 	= $topicName.' - Contact Form';
+		$from 		= $fullname.'<'.$email.'>';
+
+		// To send HTML mail, the Content-type header must be set
+		$headers = 'MIME-Version: 1.0' . "\r\n";
+		$headers.= 'Content-type: text/html; charset=utf-8' . "\r\n";
+		$headers.= "From: ".$from;*/
+
+		$body = '';
+
+		//mail($to,$subject,$body,$headers);
+
+        //SEND USING PHPMAILER
+        $mail = new PHPMailer;
+
+        //$mail->SMTPDebug = 3;                               // Enable verbose debug output
+        /*$mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp1.example.com;smtp2.example.com';  // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'user@example.com';                 // SMTP username
+        $mail->Password = 'secret';                           // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;                                    // TCP port to connect to*/
+
+        $mail->setFrom('no-reply@jacmat.css', 'Website Feedback');
+
+        //TURN INTO ARRAY
+        $emailsArray = explode(',', $emails);
+        foreach($emailsArray as $email){
+            $mail->addAddress($email);
+        }
+
+        $mail->addReplyTo('no-reply@jacmat.css', 'Website Feedback');
+
+        /*$mail->addCC('cc@example.com');
+        $mail->addBCC('bcc@example.com');*/
+
+        /*$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+        $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name*/
+        $mail->isHTML(true);                                  // Set email format to HTML
+
+        $mail->Subject = 'Website Feedback';
+        $mail->Body    = $body;
+
+        if(!$mail->send()) {
+            //echo 'Message could not be sent.';
+            //echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            //echo 'Message has been sent';
+        }
+	}

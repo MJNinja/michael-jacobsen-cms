@@ -1,0 +1,40 @@
+CREATE TABLE IF NOT EXISTS `feedback` (
+  `feedbackPeriodID` int(11) NOT NULL AUTO_INCREMENT,
+  `startDate` date DEFAULT '0000-00-00',
+  `endDate` date DEFAULT '0000-00-00',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`feedbackPeriodID`)
+);
+
+CREATE TABLE IF NOT EXISTS `form_feedback` (
+  `feedbackID` int(11) NOT NULL AUTO_INCREMENT,
+  `visit` int(11) DEFAULT '0',
+  `reasonVisit` text,
+  `findWhatNeeded` int(11) DEFAULT '0',
+  `whatLookingFor` text,
+  `easyFindInfo` int(11) DEFAULT '0',
+  `professional` int(11) DEFAULT '0',
+  `informative` int(11) DEFAULT '0',
+  `visuallyPleasing` int(11) DEFAULT '0',
+  `visitAgain` int(11) DEFAULT '0',
+  `comments` text,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`feedbackID`)
+);
+
+
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`, `moduleRights`) VALUES
+(15, 'feedback-icon.png', 'Feedback Manager', 'The Feedback Manager allows you to manage the feedback that was given about the website.', 'feedback-manager/', 0);

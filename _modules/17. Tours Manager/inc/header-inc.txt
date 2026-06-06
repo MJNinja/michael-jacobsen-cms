@@ -1,0 +1,43 @@
+<?php if($moduleID == 17){ ?>
+    <script type="text/javascript" language="javascript">
+        /*REMOVE TOUR*/
+        function deleteTour(bos) {
+            var msg = "Are you sure you want to remove the selected Tour? Once it has been deleted it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_tour'+bos+'.method = "post"');
+                eval('document.delete_tour'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_tour'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+    <script type="text/javascript" language="javascript">
+        /*REMOVE PARAGRAPH*/
+        function deleteParagraph(bos) {
+            var msg = "Are you sure you want to remove the selected Paragraph? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_paragraph'+bos+'.method = "post"');
+                eval('document.delete_paragraph'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_paragraph'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*REMOVE GALLERY*/
+        function deleteGallery(bos) {
+            var msg = "Are you sure you want to remove the selected Gallery? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_gallery'+bos+'.method = "post"');
+                eval('document.delete_gallery'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_gallery'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

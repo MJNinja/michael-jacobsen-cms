@@ -1,0 +1,50 @@
+<?php if($moduleID == 4){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE CATEGORY*/
+        function deleteAffiliateCategory(bos) {
+            var msg = "Are you sure you want to remove the selected Blog Category? You can always recover the category at a later stage.";
+            if (confirm(msg)) {
+                eval('document.delete_affiliate_category'+bos+'.method = "post"');
+                eval('document.delete_affiliate_category'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_affiliate_category'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+		/* CAN'T REMOVE CATEGORY */
+		function noDeleteCategory(){
+			alert("The selected Affiliate Category can't be removed as there are Affiliate Links linked to it. Remove all the Affiliate Links inside the category and try again.");
+		}
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*RECOVER CATEGORY*/
+        function recoverAffiliateCategory(bos) {
+            var msg = "Are you sure you want to recover the selected Affiliate Category?";
+            if (confirm(msg)) {
+                eval('document.recover_affiliate_category'+bos+'.method = "post"');
+                eval('document.recover_affiliate_category'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_affiliate_category'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        /*REMOVE AFFILIATE LINK*/
+        function deleteAffiliateLink(bos) {
+            var msg = "Are you sure you want to remove the selected Blog Post? You can always recover the user at a later stage.";
+            if (confirm(msg)) {
+                eval('document.delete_affiliate_link'+bos+'.method = "post"');
+                eval('document.delete_affiliate_link'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_affiliate_link'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

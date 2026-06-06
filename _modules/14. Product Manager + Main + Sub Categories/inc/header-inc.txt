@@ -1,0 +1,76 @@
+<?php if($product_tags == 1 || $product_tags == 1){?>
+<link rel="stylesheet" type="text/css" href="<?php echo $cms_root; ?>js/tag-it/css/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="<?php echo $cms_root; ?>js/tag-it/css/jquery.tagit.css"/>
+<?php }?>
+
+<?php if($moduleID == 11){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE CATEGORY*/
+        function deleteProductCategory(bos) {
+            var msg = "Are you sure you want to remove the selected Product Category? Once it has been removed it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_product_category'+bos+'.method = "post"');
+                eval('document.delete_product_category'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_product_category'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+		/* CAN'T REMOVE CATEGORY */
+		function noDeleteCategory(){
+			alert("The selected Product Category can't be removed as there are Sub Categories linked to it that contain products. Remove all the products inside the sub category and try again.");
+		}
+	</script>
+
+	<script type="text/javascript" language="javascript">
+		/* CAN'T REMOVE CATEGORY */
+		function noDeleteSubCategory(){
+			alert("The selected Sub Category can't be removed as there are Products linked to it. Remove all the products inside the sub category and try again.");
+		}
+	</script>
+
+    <script type="text/javascript" language="javascript">
+        /*REMOVE PRODUCT*/
+        function deleteProduct(bos) {
+            var msg = "Are you sure you want to remove the selected Product? Once it has been deleted it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_product'+bos+'.method = "post"');
+                eval('document.delete_product'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_product'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+    <script type="text/javascript" language="javascript">
+        /*REMOVE PARAGRAPH*/
+        function deleteParagraph(bos) {
+            var msg = "Are you sure you want to remove the selected Paragraph? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_paragraph'+bos+'.method = "post"');
+                eval('document.delete_paragraph'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_paragraph'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*REMOVE GALLERY*/
+        function deleteGallery(bos) {
+            var msg = "Are you sure you want to remove the selected Gallery? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_gallery'+bos+'.method = "post"');
+                eval('document.delete_gallery'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_gallery'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

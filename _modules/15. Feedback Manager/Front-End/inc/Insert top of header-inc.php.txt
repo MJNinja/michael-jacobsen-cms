@@ -1,0 +1,6 @@
+<?php
+//SET FEEDBACK PERIOD
+$feedbackCurrentDate = date('Y-m-d');
+$feedback_start = $generalInfoSelector->getFeedbackPeriodInfo('startDate');
+$feedback_end = $generalInfoSelector->getFeedbackPeriodInfo('endDate');
+?>

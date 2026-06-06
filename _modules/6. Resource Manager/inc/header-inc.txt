@@ -1,0 +1,90 @@
+<?php if($resource_tags == 1){?>
+<link rel="stylesheet" type="text/css" href="<?php echo $cms_root; ?>js/tag-it/css/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="<?php echo $cms_root; ?>js/tag-it/css/jquery.tagit.css"/>
+<?php }?>
+
+<?php if($moduleID == 6){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE CATEGORY*/
+        function deleteResourceCategory(bos) {
+            var msg = "Are you sure you want to remove the selected Resource Category? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_resource_category'+bos+'.method = "post"');
+                eval('document.delete_resource_category'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_resource_category'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+		/* CAN'T REMOVE CATEGORY */
+		function noDeleteCategory(){
+			alert("The selected Category can't be removed as there are Resources linked to it. Remove the category from all the Video Tutorial Playlists and try again.");
+		}
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*REMOVE RESOURCE*/
+        function deleteResource(bos) {
+            var msg = "Are you sure you want to remove the selected Resource? You can always recover the resource at a later stage.";
+            if (confirm(msg)) {
+                eval('document.delete_resource'+bos+'.method = "post"');
+                eval('document.delete_resource'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_resource'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+		/* CAN'T REMOVE RESOURCE */
+		function noDeleteResource(){
+			alert("The selected Resource can't be removed as there is content linked to it. Remove the all the content from the Resource and try again.");
+		}
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*RECOVER CATEGORY*/
+        function recoverTutorialCategory(bos) {
+            var msg = "Are you sure you want to recover the selected Tutorial Category?";
+            if (confirm(msg)) {
+                eval('document.recover_tutorial_category'+bos+'.method = "post"');
+                eval('document.recover_tutorial_category'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_tutorial_category'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+
+	<script type="text/javascript" language="javascript">
+        /*RECOVER RESOURCE*/
+        function recoverResource(bos) {
+            var msg = "Are you sure you want to recover the selected Resource?";
+            if (confirm(msg)) {
+                eval('document.recover_resource'+bos+'.method = "post"');
+                eval('document.recover_resource'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_resource'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        /*REMOVE PARAGRAPH*/
+        function deleteParagraph(bos) {
+            var msg = "Are you sure you want to remove the selected Paragraph? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_paragraph'+bos+'.method = "post"');
+                eval('document.delete_paragraph'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_paragraph'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

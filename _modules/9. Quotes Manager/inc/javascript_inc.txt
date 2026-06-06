@@ -1,0 +1,35 @@
+<?php if($removed_category == 1){?>
+<script type="text/javascript" language="javascript">
+var category_name 	= $('input[name=category-name]').val();
+var category_type	= $('input[name=category-type]').val();
+
+//OPEN COLORBOX MODAL
+$.colorbox({html:'<div class="modal-windows-holder"><div class="modal-name">Re-activate Old Category</div><div class="modal-message"><p>The <b>Category Name</b> you supplied is currently used by another category which is inactive.</p><p>If you wish you can reactive the category and all its quotes, if there any, inside the category. This will then show the all the quotes on the website again.</p><br /><p class="modal-question">Re-activate Category Status?</p><br /></div><form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data"><input type="hidden" name="category-name" value="'+ category_name +'"/><input type="hidden" name="category-type" value="'+ category_type +'"/><input type="submit" class="modal-left-link" name="reactivate-category-status" title="Yes, overwrite old category" value="Yes, re-activate old category"><input type="button" class="modal-right-link" name="cancel-overright-category-status" title="No, leave old category as is" value="No, leave old category as is"></form></div>', top: '100px'});
+
+
+//DON'T OVERWRITE USER INFO
+$('input[name=cancel-overright-category-status]').click(function(){
+	$.colorbox.close();
+})
+
+</script>
+<?php }?>
+
+<?php if($removed_quote == 1){?>
+<script type="text/javascript" language="javascript">
+var quoteCatID	= $('input[name=quoteCatID]').val();
+var author_name = $('input[name=author-name]').val();
+var quote	 	= $('textarea[name=paragraph]').val();
+var quote_type	= $('input[name=quote-type]').val();
+
+//OPEN COLORBOX MODAL
+$.colorbox({html:'<div class="modal-windows-holder"><div class="modal-name">Re-activate Old Quote</div><div class="modal-message"><p>The <b>Quote</b> you supplied is currently in use but is inactive.</p><p>If you wish you can reactive the quote and link it to this category.</p><br /><p class="modal-question">Re-activate Old Quote?</p><br /></div><form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data"><input type="hidden" name="quoteCatID" value="'+ quoteCatID +'"/><input type="hidden" name="author_name" value="'+ author_name +'"/><input type="hidden" name="quote" value="'+ quote +'"/><input type="hidden" name="quote_type" value="'+ quote_type +'"/><input type="submit" class="modal-left-link" name="reactivate-quote-status" title="Yes, overwrite old quote" value="Yes, re-activate old quote"><input type="button" class="modal-right-link" name="cancel-overright-quote-status" title="No, leave old quote as is" value="No, leave old quote as is"></form></div>', top: '100px'});
+
+
+//DON'T OVERWRITE USER INFO
+$('input[name=cancel-overright-quote-status]').click(function(){
+	$.colorbox.close();
+})
+
+</script>
+<?php }?>

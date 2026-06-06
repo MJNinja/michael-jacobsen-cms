@@ -1,0 +1,31 @@
+/* --------------- SET CHARACTER FORMAT FOR CSS DOC ------------- */
+@charset "utf-8";
+
+/* --------------- IMPORT STYLE SHEETS ------------- */
+@import url("normalize.css");
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:700);
+
+/* --------------- PRESET STYLES ------------- */
+body{background-color:#252c34; color:#FFF; font-family:Verdana, Helvetica, sans-serif; font-size:14px; line-height:20px;}
+h1, h2, h3, h4, h5, h6{font-family: 'Ubuntu', sans-serif;}
+
+/* --------------- LOGIN STYLES ------------- */
+.login-holder{width:525px; margin:5% auto 0 auto; padding:30px; background-color:#1c2126;}
+.login-holder img{margin-bottom:30px;}
+.login-holder h1{line-height:30px; font-size:36px;}
+.login-intro{margin-top:20px;}
+.login-form-holder{margin-top:20px;}
+.login-form-holder input{border:none; background-color:#13161a; padding:15px; color:#CCC; outline:none; width:74.5%; margin-bottom:10px; font-size:18px;}
+.login-form-holder .submit-button-style{background-color:#04a6df; width:80%; color:#FFF; text-transform:uppercase;}
+.login-form-holder .submit-button-style:hover{background-color:#05bcff;}
+.login-holder p{font-size:12px; margin-top:10px;}
+
+/* --------------- ERROR STYLES ------------- */
+.errorContainerApproved{margin-top:20px; padding:10px; background-color:#ae0101; width:76%;}
+
+.errorContainerWrong{margin-top:20px; padding:10px; background-color:#ae0101; width:76%;}
+.error_message{font-weight:bold; font-size:16px; margin-bottom:10px;}
+.errors{list-style-type:none;}
+
+/* --------------- RESET STYLES ------------- */
+.hide{display:none;}

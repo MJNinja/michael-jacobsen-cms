@@ -1,0 +1,29 @@
+<?php if($moduleID == 12){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE SOFTWARE*/
+        function deleteSoftware(bos) {
+            var msg = "Are you sure you want to remove the selected Software? You can always recover the software at a later stage.";
+            if (confirm(msg)) {
+                eval('document.delete_software'+bos+'.method = "post"');
+                eval('document.delete_software'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_software'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*RECOVER SOFTWARE*/
+        function recoverSoftware(bos) {
+            var msg = "Are you sure you want to recover the selected Software?";
+            if (confirm(msg)) {
+                eval('document.recover_software'+bos+'.method = "post"');
+                eval('document.recover_software'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_software'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+<?php } ?>

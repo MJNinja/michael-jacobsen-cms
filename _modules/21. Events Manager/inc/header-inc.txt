@@ -1,0 +1,71 @@
+<?php if($moduleID == 21){ ?>
+    <script type="text/javascript" language="javascript">
+        /*REMOVE EVENT*/
+        function deleteEvent(bos) {
+            var msg = "Are you sure you want to remove the selected Event? You can always recover the event at a later stage.";
+            if (confirm(msg)) {
+                eval('document.delete_event'+bos+'.method = "post"');
+                eval('document.delete_event'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_event'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*DELETE PERMANENTLY EVENT*/
+        function deletePermanentlyEvent(bos) {
+            var msg = "Are you sure you want to delete the selected Event permanently? Once it is gone it can't be recovered!";
+            if (confirm(msg)) {
+                eval('document.delete_permanently_event'+bos+'.method = "post"');
+                eval('document.delete_permanently_event'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_permanently_event'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        /*RECOVER EVENT*/
+        function recoverEvent(bos) {
+            var msg = "Are you sure you want to recover the selected Event?";
+            if (confirm(msg)) {
+                eval('document.recover_event'+bos+'.method = "post"');
+                eval('document.recover_event'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_event'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        /*REMOVE PARAGRAPH*/
+        function deleteParagraph(bos) {
+            var msg = "Are you sure you want to remove the selected Paragraph? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_paragraph'+bos+'.method = "post"');
+                eval('document.delete_paragraph'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_paragraph'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*REMOVE GALLERY*/
+        function deleteGallery(bos) {
+            var msg = "Are you sure you want to remove the selected Gallery? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_gallery'+bos+'.method = "post"');
+                eval('document.delete_gallery'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_gallery'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

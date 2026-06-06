@@ -1,0 +1,70 @@
+CREATE TABLE IF NOT EXISTS `forms` (
+  `formID` int(11) NOT NULL AUTO_INCREMENT,
+  `formName` varchar(255) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`formID`)
+);
+
+CREATE TABLE IF NOT EXISTS `forms_info` (
+  `infoID` int(11) NOT NULL AUTO_INCREMENT,
+  `formID` int(11) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `tel` varchar(255) DEFAULT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `country` varchar(255) DEFAULT NULL,
+  `date_time` datetime NOT NULL,
+  `topicID` tinyint(4) NOT NULL,
+  `browser` varchar(255) NOT NULL,
+  `ipAddress` varchar(255) NOT NULL,
+  `browserLanguage` varchar(255) NOT NULL,
+  `operatingSystem` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`infoID`)
+);
+
+CREATE TABLE IF NOT EXISTS `forms_recipients` (
+  `recipientID` int(11) NOT NULL AUTO_INCREMENT,
+  `formID` int(11) NOT NULL,
+  `topicID` tinyint(4) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`recipientID`)
+);
+
+CREATE TABLE IF NOT EXISTS `form_topics` (
+  `topicID` int(11) NOT NULL AUTO_INCREMENT,
+  `formID` int(11) NOT NULL,
+  `topicName` varchar(255) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`topicID`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`, `moduleRights`) VALUES
+(99, 'form-icon.png', 'Forms Manager', 'The Forms Manager allows you manage all the recipients for the forms on your website. It also supplies you with useful user data about who submitted a form.', 'forms-manager/', 1);

@@ -1,0 +1,36 @@
+CREATE TABLE IF NOT EXISTS `banner_area` (
+  `bannerAreaID` int(11) NOT NULL AUTO_INCREMENT,
+  `bannerAreaName` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`bannerAreaID`)
+);
+
+CREATE TABLE IF NOT EXISTS `banner_images` (
+  `bannerID` int(11) NOT NULL AUTO_INCREMENT,
+  `bannerAreaID` int(11) DEFAULT '0',
+  `imageTitle` varchar(255) DEFAULT NULL,
+  `bannerDescription` text,
+  `imageFile` varchar(255) DEFAULT NULL,
+  `bannerLink` varchar(255) DEFAULT NULL,
+  `startDate` date DEFAULT '0000-00-00',
+  `endDate` date DEFAULT '0000-00-00',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `sequence` int(11) DEFAULT '0',
+  `defaultBanner` int(11) DEFAULT '0',
+  PRIMARY KEY (`bannerID`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`, `moduleRights`) VALUES
+(8, 'banner-icon.png', 'Banner Manager', 'The Banner Manager allows you manage all the banners that are available on your website.', 'banner-manager/', 1);

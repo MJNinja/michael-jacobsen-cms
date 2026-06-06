@@ -1,0 +1,124 @@
+<?php if($removed_resource == 1){?>
+<script type="text/javascript" language="javascript">
+var resource_title 	    = $('input[name=resource-title]').val();
+var paragraph	        = $('textarea[name=paragraph]').val();
+var categories          = $('input[name=categories]').val();
+var date                = $('input[name=resource-date]').val();
+var time                = $('input[name=resource-time]').val();
+
+var zip_type            = $('input[name=zip-type]').val();
+var image_type          = $('input[name=image-type]').val();
+
+//OPEN COLORBOX MODAL
+$.colorbox({html:'<div class="modal-windows-holder"><div class="modal-name">Re-activate Old Resource</div><div class="modal-message"><p>The <b>Resource Title</b> you supplied is currently used by another resource which is inactive.</p><p>If you wish you can reactive the resource and all its content inside the resource. This will then show the Resource on the website again.</p><br /><p class="modal-question">Re-activate Resource Status?</p><br /></div><form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data"><input type="hidden" name="zip-type" value="'+ zip_type +'"/><input type="hidden" name="image-type" value="'+ image_type +'"/><input type="hidden" name="date" value="'+ date +'"/><input type="hidden" name="time" value="'+ time +'"/><input type="hidden" name="resource-title" value="'+ resource_title +'"/><input type="hidden" name="paragraph" value="'+ paragraph +'"/><input type="hidden" name="categories" value="'+ categories +'"/><input type="submit" class="modal-left-link" name="reactivate-resource-status" title="Yes, overwrite old resource" value="Yes, re-activate old resource"><input type="button" class="modal-right-link" name="cancel-overright-resource-status" title="No, leave old resource as is" value="No, leave old resource as is"></form></div>', top: '100px'});
+
+
+//DON'T OVERWRITE TUTORIAL PLAYLIST INFO
+$('input[name=cancel-overright-resource-status]').click(function(){
+	$.colorbox.close();
+})
+
+</script>
+<?php }?>
+
+<?php if($resource_tags == 1){?>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/tag-it/js/tag-it.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+        var category_tags = ',';
+        var required_software = ',';
+
+        //ACTIVATE TAGS FOR CATEGORIES
+        $("#category_tags").tagit({
+            //GET AVAILABLE TAGS
+            availableTags: [<?php echo $resourceManager->getAllResourceCategories();?>],
+            //CHECKS TAGS BEFORE THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            beforeTagAdded: function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            afterTagAdded : function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE REMOVED AND INSERT VALUES INTO INPUT FIELD
+            afterTagRemoved: function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            }
+        });
+
+        //ACTIVATE TAGS FOR SOFTWARES
+        $("#software_tags").tagit({
+            //GET AVAILABLE TAGS
+            availableTags: [<?php echo $resourceManager->getAllSoftwares();?>],
+            //CHECKS TAGS BEFORE THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            beforeTagAdded: function() {
+                required_software = ',';
+                $("#software_tags li span.tagit-label").each(function(){
+                    required_software = required_software + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(required_software == ','){
+                    $('input[name=required-softwares]').val('');
+                }else{
+                    $('input[name=required-softwares]').val(required_software);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            afterTagAdded : function() {
+                required_software = ',';
+                $("#software_tags li span.tagit-label").each(function(){
+                    required_software = required_software + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(required_software == ','){
+                    $('input[name=required-softwares]').val('');
+                }else{
+                    $('input[name=required-softwares]').val(required_software);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE REMOVED AND INSERT VALUES INTO INPUT FIELD
+            afterTagRemoved: function() {
+                required_software = ',';
+                $("#software_tags li span.tagit-label").each(function(){
+                    required_software = required_software + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(required_software == ','){
+                    $('input[name=required-softwares]').val('');
+                }else{
+                    $('input[name=required-softwares]').val(required_software);
+                }
+            }
+        });
+
+    });
+</script>
+<?php }?>

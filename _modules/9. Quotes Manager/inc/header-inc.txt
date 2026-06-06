@@ -1,0 +1,64 @@
+<?php if($moduleID == 9){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE CATEGORY*/
+        function deleteCategory(bos) {
+            var msg = "Are you sure you want to remove the selected Quote Category? You can always recover the category at a later stage.";
+            if (confirm(msg)) {
+                eval('document.delete_category'+bos+'.method = "post"');
+                eval('document.delete_category'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_category'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+	
+	<script type="text/javascript" language="javascript">
+		/* CAN'T REMOVE CATEGORY */
+		function noDeleteCategory(){
+			alert("The selected Quote Category can't be removed as there are quotes linked to it. Remove all the quotes inside the category and try again.");	 
+		}
+	</script>
+		
+	<script type="text/javascript" language="javascript">
+        /*RECOVER CATEGORY*/
+        function recoverCategory(bos) {
+            var msg = "Are you sure you want to recover the selected Category?";
+            if (confirm(msg)) {
+                eval('document.recover_category'+bos+'.method = "post"');
+                eval('document.recover_category'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_category'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+    
+    <script type="text/javascript" language="javascript">
+        /*REMOVE QUOTE*/
+        function deleteQuote(bos) {
+            var msg = "Are you sure you want to remove the selected Quote? You can always recover the quote at a later stage.";
+            if (confirm(msg)) {
+                eval('document.delete_quote'+bos+'.method = "post"');
+                eval('document.delete_quote'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_quote'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+    
+    <script type="text/javascript" language="javascript">
+        /*RECOVER QUOTE*/
+        function recoverQuote(bos) {
+            var msg = "Are you sure you want to recover the selected Quote?";
+            if (confirm(msg)) {
+                eval('document.recover_quote'+bos+'.method = "post"');
+                eval('document.recover_quote'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_quote'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+<?php } ?>

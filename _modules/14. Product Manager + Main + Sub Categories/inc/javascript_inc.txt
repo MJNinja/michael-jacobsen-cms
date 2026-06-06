@@ -1,0 +1,144 @@
+<?php if($product_tags == 1){?>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/tag-it/js/tag-it.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+        var category_tags = ',';
+
+        //ACTIVATE TAGS FOR CATEGORIES
+        $("#category_tags").tagit({
+            //GET AVAILABLE TAGS
+            availableTags: [<?php echo $productManager->getAllProductCategories();?>],
+            //CHECKS TAGS BEFORE THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            beforeTagAdded: function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            afterTagAdded : function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE REMOVED AND INSERT VALUES INTO INPUT FIELD
+            afterTagRemoved: function() {
+                category_tags = ',';
+                $("#category_tags li span.tagit-label").each(function(){
+                    category_tags = category_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(category_tags == ','){
+                    $('input[name=categories]').val('');
+                }else{
+                    $('input[name=categories]').val(category_tags);
+                }
+            }
+        });
+
+    });
+</script>
+<?php }else{ ?>
+<script type="text/javascript" language="javascript">
+//CHECK FOR CHANEGE IN MAIN CATEGORY DROP DOWN
+$('select[name=product-category]').on('change', function() {
+    var ddValue = this.value;
+
+    //CHECK IF A MAIN CATEGORY HAS BEEN SELECTED
+    if(ddValue != '' && ddValue != ' ' && ddValue != 0){
+        //SHOW LOADER
+        $('#loader-product-cat').show();
+
+        //DO AJAX
+        $.ajax({
+    		type: "POST",
+    		url: "<?php echo $cms_root; ?>ajax/ajax.productSubCategories.php",
+    		data: "ddValue=" + ddValue,
+    		success: function(response) {
+                responseArray   = response.split('#@#');
+                result          = responseArray[0];
+                content         = responseArray[1];
+
+                //IF SUCCESSDFUL
+                if(result == 'success'){
+                    //APPEND DEFAULT
+                    $('select[name=product-sub-category]').empty().append('<option value="0">-- Select a Sub Category --</option>');
+                    //APPEND CONTENT
+                    $('select[name=product-sub-category]').append(content);
+                    //SHOW SUB CATEGORY DROP DOWN
+                    $('.product-sub-cat-holder').show();
+                }
+                //IF FAILED
+                else{
+                    //HIDE SUB CATEGORY DROP DOWN
+                    $('.product-sub-cat-holder').hide();
+                }
+
+                //HIDE LOADER
+                $('#loader-product-cat').hide();
+            }
+    	});
+    }else{
+        //HIDE SUB CATEGORY DROP DOWN
+        $('.product-sub-cat-holder').hide();
+
+        //HIDE LOADER
+        $('#loader-product-cat').hide();
+    }
+});
+</script>
+<?php } ?>
+
+<?php if($product_load_more == 1){?>
+<!-- VIEW MORE PRODUCTS JAVASCRIPT BEGIN-->
+<script type="text/javascript" language="javascript">
+$(function(){
+   var page = 1;
+   var pages = $("#pages-products").val(); //TOTAL NUMBER OF PAGES
+
+   $("#recent-products").load("<?php echo $cms_root ?>ajax/ajax.fetchProducts.php");
+
+   //WHEN THE 'LOAD MORE' BUTTON IS PRESSED
+   $("#loadmore-products").click(function(){
+
+     //HIDE LOAD MORE BUTTON
+     $('#loadmore-products').hide();
+
+     //SHOW PRELOADER
+     $("#loader-products").show();
+
+     var next = page+=1;
+
+     $.get("<?php echo $cms_root ?>ajax/ajax.fetchProducts.php?page="+next, function(data){
+       //HIDE PRELOADER
+       $("#loader-products").hide();
+
+       //SHIW LOAD MORE BUTTON
+       $('#loadmore-products').show();
+
+       if(next==pages){
+         $("#loadmore-products").remove(); //IF ALL PAGES ARE LOADED, THE BUTTON WILL BE REMOVED
+       }
+
+       $("#recent-products").append(data); //LOADS THE NEW PAGE OF CONTENT UNDER THE REST
+
+     });
+   });
+});
+</script>
+<!-- VIEW MORE PRODUCTS JAVASCRIPT END-->
+<?php }?>

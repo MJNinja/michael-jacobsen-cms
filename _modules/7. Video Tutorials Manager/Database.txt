@@ -1,0 +1,72 @@
+CREATE TABLE IF NOT EXISTS `video_tutorials_category` (
+  `videoTutCatID` int(11) NOT NULL,
+  `videoTutCatName` varchar(255) NOT NULL,
+  `videoTutCatDescription` text NOT NULL,
+  `videoTutCatImageTitle` varchar(255) NOT NULL,
+  `videoTutCatImage` varchar(255) NOT NULL,
+  `views` bigint(20) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `video_tutorials_content` (
+  `videoTutContentID` int(11) NOT NULL,
+  `videoTutPlaylistID` int(11) NOT NULL,
+  `videoTitle` varchar(255) NOT NULL,
+  `videoLink` varchar(255) NOT NULL,
+  `views` bigint(20) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  `sequence` int(11) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `video_tutorials_playlist` (
+  `videoTutPlaylistID` int(11) NOT NULL,
+  `videoTutCatID` text NOT NULL,
+  `videoTutPlaylistTitle` varchar(255) NOT NULL,
+  `videoTutPlaylistIntro` text NOT NULL,
+  `videoTutPlaylistImageTitle` varchar(255) NOT NULL,
+  `videoTutPlaylistImage` varchar(255) NOT NULL,
+  `requiredSoftware` text NOT NULL,
+  `ownerName` varchar(255) NOT NULL,
+  `ownerSource` text NOT NULL,
+  `videoTutPublished` tinyint(4) NOT NULL,
+  `affiliateIDs` text NOT NULL,
+  `views` bigint(20) NOT NULL,
+  `url` text NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `video_views` (
+  `videoTutContentID` int(11) NOT NULL,
+  `videoViewsMonth` int(11) NOT NULL,
+  `videoViewsYear` int(11) NOT NULL,
+  `videoViews` int(11) NOT NULL
+);
+
+ALTER TABLE `meta_details` ADD `videoTutCatID` INT NULL DEFAULT '0';
+
+ALTER TABLE `meta_details` ADD `videoTutPlaylistID` INT NULL DEFAULT '0';
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`) VALUES
+(7, 'video-tutorial-icon.png', 'Video Tutorials Manager', '', 'video-tutorials-manager/');
+
+ALTER TABLE `search_index` ADD `videoTutContentID` INT NULL DEFAULT '0';
+
+ALTER TABLE `search_termresults` ADD `videoTutContentID` INT NULL DEFAULT '0';

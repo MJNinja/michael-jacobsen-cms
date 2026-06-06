@@ -1,0 +1,15 @@
+//#################################################################
+// GET FEEDBACK PERIDO INFO
+//#################################################################
+function getFeedbackPeriodInfo($field){
+	//CONNECT TO DATABASE
+	$connector = new dbConnector();
+
+	//GET PAGE INFO
+	$result    = $connector->query("SELECT * FROM feedback", array());
+	$row       = $connector->fetchArray($result);
+
+	//RETURN VAlUE
+	return $row[$field];
+
+}

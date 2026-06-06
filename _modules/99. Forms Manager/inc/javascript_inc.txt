@@ -1,0 +1,335 @@
+<?php if($showCharts == 1){?>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/chartjs/Chart.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<script type="text/javascript">
+    //CHART JS LIBRARY
+
+    //#######################
+    //LINE CHARTS
+    //#######################
+    <?php
+    //GET THE DEFAULT DATA INFORMATION FROM DATABASE
+    $results = $formsManager->getDefaultGraphInfo();
+    //EXPLODE RESULT TO GET VALUES
+    $explode = explode("::", $results);
+    $label = $explode[0];
+    $values = $explode[1];
+
+    //GET GEOCHART DEFAULT DATA
+    $geoChartData = $formsManager->getGeoChartInfo();
+    ?>
+    //SET VALUES FOR LINE CHART
+    var data = {
+    	labels : [<?php echo $label; ?>],
+    	datasets: [
+    		{
+    			label: "My First dataset",
+    			fillColor: "rgba(151,187,205,0.2)",
+    			strokeColor: "rgba(151,187,205,1)",
+    			pointColor: "rgba(151,187,205,1)",
+    			pointStrokeColor: "#fff",
+    			pointHighlightFill: "#fff",
+    			pointHighlightStroke: "rgba(151,187,205,1)",
+    			data: [<?php echo $values;?>]
+    		}
+
+    	]
+
+    }
+
+    var line = document.getElementById("lineChart").getContext("2d");
+    window.myLine = new Chart(line).Line(data,{bezierCurve: false, scaleBeginAtZero: true});
+
+    //#######################
+    //GOOGLE CHART JS LIBRARY
+    //#######################
+    google.load("visualization", "1", {packages:["geochart"]});
+    google.setOnLoadCallback(drawRegionsMap);
+
+    function drawRegionsMap() {
+
+        var data = google.visualization.arrayToDataTable(<?php echo $geoChartData; ?>);
+
+        var options = {
+            colorAxis: {colors: ['#c8d8de', '#04a6df']},
+            width: 1000,
+            height: 500,
+            datalessRegionColor: '#e5e5e5'
+        };
+
+        var chart = new google.visualization.GeoChart(document.getElementById('country_div'));
+
+        chart.draw(data, options);
+    }
+
+    //##############################
+    //SELECT CHANGE FUNCTIONS
+    //##############################
+    $('select[name=forms-select]').change(function(){
+        //GET DEFAULT VALUES
+        var tab  = $('input[name=tabName]').val();
+
+        //WHICH FUNTION TO CALL
+        //FORM SUBMITTED
+        if(tab == 'formsSubmitted'){
+            formsSubmitted();
+        }
+        //COUNTRIES
+        else if(tab == 'countries'){
+            //countries();
+        }
+        //MORE DETAILS
+        else if(tab == 'moreDetails'){
+            moreDetails();
+        }
+    });
+
+    //##############################
+    //CLICK FUNCTIONS
+    //##############################
+    //SHOW TOTAL SUBMITTED FORMS
+    function formsSubmitted(){
+        //SET INPUT VALUE
+        $('input[name=tabName]').val('formsSubmitted');
+
+        //GET DEFAULT VALUES
+        var form = $('select[name=forms-select]').val();
+
+        //GET DIFFERENT CHART CONTAINER
+        var lineChart = $('#lineChart-holder');
+        var country_div = $('#country_div_holder');
+        var piecharts = $('#piecharts-holder');
+
+        //REMOVE CANVAS
+        lineChart.empty();
+        //country_div.empty();
+        piecharts.empty();
+
+        //HIDE DIV
+        country_div.hide();
+        piecharts.hide();
+
+        //DISPLAY LOADER
+        $('.form-loader').show();
+
+        //DO AJAX REQUESTED
+        $.ajax({
+        	type: "POST",
+        	url: '<?php echo $cms_root; ?>forms-manager/ajax.graphUpdates.php',
+        	data: "form=" + form + "&linegraph=1",
+        	success: function(datalist) {
+        		//HIDE LOADER
+                $(".form-loader").hide();
+
+        		//CREATE NEW GRAPH
+                $('#lineChart-holder').append('<div class="insight-information-heading">Forms Submitted</div><canvas id="lineChart"></canvas>');
+        		var line = document.getElementById("lineChart").getContext("2d");
+        		window.myLine = new Chart(line).Line(JSON.parse(datalist),{bezierCurve: false, scaleBeginAtZero: true});
+        	}
+        });
+    }
+
+    //SHOW COUNTRIES
+    function countries(){
+        //SET INPUT VALUE
+        $('input[name=tabName]').val('countries');
+
+        //GET DEFAULT VALUES
+        var form = $('select[name=forms-select]').val();
+
+        //GET DIFFERENT CHART CONTAINER
+        var lineChart = $('#lineChart-holder');
+        var country_div = $('#country_div_holder');
+        var piecharts = $('#piecharts-holder');
+
+        //REMOVE CANVAS
+        lineChart.empty();
+        //country_div.empty();
+        piecharts.empty();
+
+        //DISPLAY LOADER
+        $('.form-loader').show();
+
+        //HIDE LOADER
+        $(".form-loader").hide();
+
+        //HIDE DIV
+        piecharts.hide();
+
+        //SHOW COUNTRY DIV
+        country_div.show();
+
+    }
+
+    //SHOW PIE CHARTS
+    function moreDetails(){
+        //SET INPUT VALUE
+        $('input[name=tabName]').val('moreDetails');
+
+        //GET DEFAULT VALUES
+        var form = $('select[name=forms-select]').val();
+
+        //GET DIFFERENT CHART CONTAINER
+        var lineChart = $('#lineChart-holder');
+        var country_div = $('#country_div_holder');
+        var piecharts = $('#piecharts-holder');
+
+        //REMOVE CANVAS
+        lineChart.empty();
+        //country_div.empty();
+        piecharts.empty();
+
+        //HIDE DIV
+        country_div.hide();
+
+        //SHOW DIV
+        piecharts.show();
+
+        //DISPLAY LOADER
+        $('.form-loader').show();
+
+        //DO AJAX REQUESTED
+        $.ajax({
+        	type: "POST",
+        	url: '<?php echo $cms_root; ?>forms-manager/ajax.graphUpdates.php',
+        	data: "form=" + form + "&piecharts=1",
+        	success: function(datalist) {
+                //SPLIT DATALIST INFORMATION
+                dataArray = datalist.split("^");
+
+        		//HIDE LOADER
+                $(".form-loader").hide();
+
+        		//CREATE NEW GRAPH
+                $('#piecharts-holder').append('<div class="insight-information-heading-piecharts">Cities:</div><div class="insight-information-heading-piecharts">Languages:</div><div class="insight-information-heading-piecharts">Browsers:</div><div class="insight-information-heading-piecharts">Operating Systems:</div><div class="clear"></div><canvas id="city" class="piecharts"></canvas><canvas id="language" class="piecharts"></canvas><canvas id="browser" class="piecharts"></canvas><canvas id="os" class="piecharts"></canvas>');
+
+                //CITY PIE CHART
+    			var city = document.getElementById("city").getContext("2d");
+    			window.myPie = new Chart(city).Doughnut(JSON.parse(dataArray[0]),{animationEasing : "easeOut",animationSteps : 50});
+
+                //LANGUAGE PIE CHART
+    			var language = document.getElementById("language").getContext("2d");
+    			window.myPie = new Chart(language).Doughnut(JSON.parse(dataArray[1]),{animationEasing : "easeOut",animationSteps : 50});
+
+                //LANGUAGE PIE CHART
+    			var browser = document.getElementById("browser").getContext("2d");
+    			window.myPie = new Chart(browser).Doughnut(JSON.parse(dataArray[2]),{animationEasing : "easeOut",animationSteps : 50});
+
+                //LANGUAGE PIE CHART
+    			var os = document.getElementById("os").getContext("2d");
+    			window.myPie = new Chart(os).Doughnut(JSON.parse(dataArray[3]),{animationEasing : "easeOut",animationSteps : 50});
+        	}
+        });
+    }
+</script>
+<?php }?>
+
+<?php if($email_filter_tags == 1){?>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/jquery-ui.js"></script>
+<script type="text/javascript" src="<?php echo $cms_root; ?>js/tag-it/js/tag-it.js"></script>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function() {
+        var customer_name_tags = ',';
+
+        //ACTIVATE TAGS FOR CATEGORIES
+        $("#customer_name_tags").tagit({
+            placeholderText : 'Customer Name',
+            //GET AVAILABLE TAGS
+            availableTags: [<?php echo $formsManager->getAllFormCustomerNames();?>],
+            //CHECKS TAGS BEFORE THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            beforeTagAdded: function() {
+                customer_name_tags = ',';
+                $("#customer_name_tags li span.tagit-label").each(function(){
+                    customer_name_tags = customer_name_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(customer_name_tags == ','){
+                    $('input[name=customer_names]').val('');
+                }else{
+                    $('input[name=customer_names]').val(customer_name_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            afterTagAdded : function() {
+                customer_name_tags = ',';
+                $("#customer_name_tags li span.tagit-label").each(function(){
+                    customer_name_tags = customer_name_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(customer_name_tags == ','){
+                    $('input[name=customer_names]').val('');
+                }else{
+                    $('input[name=customer_names]').val(customer_name_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE REMOVED AND INSERT VALUES INTO INPUT FIELD
+            afterTagRemoved: function() {
+                customer_name_tags = ',';
+                $("#customer_name_tags li span.tagit-label").each(function(){
+                    customer_name_tags = customer_name_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(customer_name_tags == ','){
+                    $('input[name=customer_names]').val('');
+                }else{
+                    $('input[name=customer_names]').val(customer_name_tags);
+                }
+            }
+        });
+
+    });
+
+    $(document).ready(function() {
+        var customer_email_tags = ',';
+
+        //ACTIVATE TAGS FOR CATEGORIES
+        $("#email_tags").tagit({
+            placeholderText : 'Customer Emails',
+            //GET AVAILABLE TAGS
+            availableTags: [<?php echo $formsManager->getAllFormEmails();?>],
+            //CHECKS TAGS BEFORE THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            beforeTagAdded: function() {
+                customer_email_tags = ',';
+                $("#email_tags li span.tagit-label").each(function(){
+                    customer_email_tags = customer_email_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(customer_email_tags == ','){
+                    $('input[name=customer_emails]').val('');
+                }else{
+                    $('input[name=customer_emails]').val(customer_email_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE ADDED AND INSERT VALUES INTO INPUT FIELD
+            afterTagAdded : function() {
+                customer_email_tags = ',';
+                $("#email_tags li span.tagit-label").each(function(){
+                    customer_email_tags = customer_email_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(customer_email_tags == ','){
+                    $('input[name=customer_emails]').val('');
+                }else{
+                    $('input[name=customer_emails]').val(customer_email_tags);
+                }
+            },
+            //CHECKS TAGS AFTER THEY ARE REMOVED AND INSERT VALUES INTO INPUT FIELD
+            afterTagRemoved: function() {
+                customer_email_tags = ',';
+                $("#email_tags li span.tagit-label").each(function(){
+                    customer_email_tags = customer_email_tags + $(this).html() + ',';
+                });
+                //CHECK IF CONTENT IS EMPTY
+                if(customer_email_tags == ','){
+                    $('input[name=customer_emails]').val('');
+                }else{
+                    $('input[name=customer_emails]').val(customer_email_tags);
+                }
+            }
+        });
+
+    });
+</script>
+<?php } ?>

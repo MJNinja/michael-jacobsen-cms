@@ -1,0 +1,20 @@
+<?php if($removed_software == 1){?>
+<script type="text/javascript" language="javascript">
+var software_name	    = $('input[name=software-name]').val();
+var paragraph	        = $('textarea[name=paragraph]').val();
+var software_link       = $('input[name=software-link]').val();
+
+var image_type          = $('input[name=image-type]').val();
+var software_type       = $('input[name=software-type]').val();
+
+//OPEN COLORBOX MODAL
+$.colorbox({html:'<div class="modal-windows-holder"><div class="modal-name">Re-activate Old Software</div><div class="modal-message"><p>The <b>Software Name</b> you supplied is currently used by another software which is inactive.</p><p>If you wish you can reactive the software.</p><br /><p class="modal-question">Re-activate Software Status?</p><br /></div><form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data"><input type="hidden" name="software-name" value="'+ software_name +'"/><input type="hidden" name="paragraph" value="'+ paragraph +'"/><input type="hidden" name="software-link" value="'+ software_link +'"/><input type="hidden" name="image-type" value="'+ image_type +'"/><input type="hidden" name="software-type" value="'+ software_type +'"/><input type="submit" class="modal-left-link" name="reactivate-software-status" title="Yes, overwrite old software" value="Yes, re-activate old software"><input type="button" class="modal-right-link" name="cancel-overright-software-status" title="No, leave old software as is" value="No, leave old software as is"></form></div>', top: '100px'});
+
+
+//DON'T OVERWRITE TUTORIAL PLAYLIST INFO
+$('input[name=cancel-overright-software-status]').click(function(){
+	$.colorbox.close();
+})
+
+</script>
+<?php }?>

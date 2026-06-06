@@ -1,0 +1,5 @@
+.feedback-canvas-size{width: 100%; height: 300px;}
+.feedback-message-list ol{margin-left: -40px; list-style-position: inside; font-weight: bold;}
+.feedback-message-list ol li{padding: 10px 15px;}
+.feedback-message-list ol li:nth-child(odd){background-color: #e5e5e5;}
+.feedback-message-list ol li span{font-weight: normal;}

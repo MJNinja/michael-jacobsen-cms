@@ -1,0 +1,55 @@
+<?php if($email_filter_tags == 1 || $email_filter_tags == 1){?>
+<link rel="stylesheet" type="text/css" href="<?php echo $cms_root; ?>js/tag-it/css/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="<?php echo $cms_root; ?>js/tag-it/css/jquery.tagit.css"/>
+<?php }?>
+
+<?php if($moduleID == 99){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE TOPIC*/
+        function deleteTopic(bos) {
+            var msg = "Are you sure you want to remove the selected Topis? Once it has been removed it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_topic'+bos+'.method = "post"');
+                eval('document.delete_topic'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_topic'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+		/* CAN'T REMOVE TOPIC */
+		function noDeleteTopic(){
+			alert("The selected Topic can't be removed as there are recipients linked to it. Remove all the recipients inside the topic and try again.");
+		}
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*REMOVE MAIN RECIPIENT*/
+        function deleteMainRecipient(bos) {
+            var msg = "Are you sure you want to remove the selected Main Recipient? Once it has been removed it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_main_recipient'+bos+'.method = "post"');
+                eval('document.delete_main_recipient'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_main_recipient'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*REMOVE TOPIC RECIPIENT*/
+        function deleteTopicRecipient(bos) {
+            var msg = "Are you sure you want to remove the selected Topic Recipient? Once it has been removed it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_topic_recipient'+bos+'.method = "post"');
+                eval('document.delete_topic_recipient'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_topic_recipient'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

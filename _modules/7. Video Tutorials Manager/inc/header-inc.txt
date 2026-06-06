@@ -1,0 +1,132 @@
+<?php if($tutorial_tags == 1){?>
+<link rel="stylesheet" type="text/css" href="<?php echo $cms_root; ?>js/tag-it/css/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="<?php echo $cms_root; ?>js/tag-it/css/jquery.tagit.css"/>
+<?php }?>
+
+<?php if($moduleID == 7){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE CATEGORY*/
+        function deleteTutorialCategory(bos) {
+            var msg = "Are you sure you want to remove the selected Video Tutorial Category? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_tutorial_category'+bos+'.method = "post"');
+                eval('document.delete_tutorial_category'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_tutorial_category'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+		/* CAN'T REMOVE CATEGORY */
+		function noDeleteCategory(){
+			alert("The selected Resource Category can't be removed as there are Resources linked to it. Remove the category from all the Resources and try again.");
+		}
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*REMOVE PLAYLIST*/
+        function deleteTutorialPlaylist(bos) {
+            var msg = "Are you sure you want to remove the selected Video Tutorial Playlist? You can always recover the playlist at a later stage.";
+            if (confirm(msg)) {
+                eval('document.delete_tutorial_playlist'+bos+'.method = "post"');
+                eval('document.delete_tutorial_playlist'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_tutorial_playlist'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+		/* CAN'T REMOVE PLAYLIST */
+		function noDeletePlaylist(){
+			alert("The selected Video Tutorial Playlist can't be removed as there are Videos linked to it. Remove the all the Videos from the Video Tutorial Playlist and try again.");
+		}
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*RECOVER CATEGORY*/
+        function recoverTutorialCategory(bos) {
+            var msg = "Are you sure you want to recover the selected Tutorial Category?";
+            if (confirm(msg)) {
+                eval('document.recover_tutorial_category'+bos+'.method = "post"');
+                eval('document.recover_tutorial_category'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_tutorial_category'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+
+	<script type="text/javascript" language="javascript">
+        /*RECOVER PLAYLIST*/
+        function recoverTutorialPlaylist(bos) {
+            var msg = "Are you sure you want to recover the selected Tutorial Playlist?";
+            if (confirm(msg)) {
+                eval('document.recover_tutorial_playlist'+bos+'.method = "post"');
+                eval('document.recover_tutorial_playlist'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.recover_tutorial_playlist'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+    </script>
+
+	<script type="text/javascript" language="javascript">
+        /*PUBLISH PLAYLIST*/
+        function publishPlaylist(bos) {
+            var msg = "Are you sure you want to publish the selected Video Tutorial Playlist? You can always unpublish the playlist at a later stage.";
+            if (confirm(msg)) {
+                eval('document.publish_playlist'+bos+'.method = "post"');
+                eval('document.publish_playlist'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.publish_playlist'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*PUBLISH PLAYLIST*/
+        function unpublishPlaylist(bos) {
+            var msg = "Are you sure you want to unpublish the selected Video Tutorial Playlist? You can always publish the playlist at a later stage.";
+            if (confirm(msg)) {
+                eval('document.unpublish_playlist'+bos+'.method = "post"');
+                eval('document.unpublish_playlist'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.unpublish_playlist'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+	<script type="text/javascript" language="javascript">
+        /*REMOVE PARAGRAPH*/
+        function deleteVideo(bos) {
+            var msg = "Are you sure you want to remove the selected Video? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_video'+bos+'.method = "post"');
+                eval('document.delete_video'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_video'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+
+    <script type="text/javascript" language="javascript">
+        /*REMOVE PARAGRAPH*/
+        function deleteParagraph(bos) {
+            var msg = "Are you sure you want to remove the selected Paragraph? Once it is removed, it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_paragraph'+bos+'.method = "post"');
+                eval('document.delete_paragraph'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_paragraph'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

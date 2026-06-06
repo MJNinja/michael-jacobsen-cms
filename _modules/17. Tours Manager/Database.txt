@@ -1,0 +1,77 @@
+CREATE TABLE IF NOT EXISTS `tours` (
+  `tourID` int(11) NOT NULL AUTO_INCREMENT,
+  `tourTitle` varchar(255) DEFAULT NULL,
+  `tourIntro` text,
+  `tourImageFile` varchar(255) DEFAULT NULL,
+  `tourImageTitle` varchar(255) DEFAULT NULL,
+  `views` int(11) DEFAULT '0',
+  `url` text,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`tourID`)
+);
+
+CREATE TABLE IF NOT EXISTS `tour_content` (
+  `tourContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `tourID` int(11) DEFAULT '0',
+  `paragraphTitle` varchar(255) DEFAULT NULL,
+  `paragraph` text,
+  `imageFile` varchar(255) DEFAULT NULL,
+  `imageTitle` varchar(255) DEFAULT NULL,
+  `documentFile` varchar(255) DEFAULT NULL,
+  `documentTitle` varchar(255) DEFAULT NULL,
+  `videoUrl` varchar(255) DEFAULT NULL,
+  `tourGalleryID` int(11) DEFAULT '0',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `sequence` int(11) DEFAULT '0',
+  PRIMARY KEY (`tourContentID`)
+);
+
+CREATE TABLE IF NOT EXISTS `tour_gallery` (
+  `tourGalleryID` int(11) NOT NULL AUTO_INCREMENT,
+  `tourID` int(11) DEFAULT '0',
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`tourGalleryID`)
+);
+
+CREATE TABLE IF NOT EXISTS `tour_gallery_content` (
+  `tourGalleryContentID` int(11) NOT NULL AUTO_INCREMENT,
+  `tourGalleryID` int(11) DEFAULT '0',
+  `galleryImageFile` varchar(255) DEFAULT NULL,
+  `galleryImageTitle` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT '0',
+  `createdDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedBy` int(11) DEFAULT '0',
+  `modifiedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `modifiedNumber` int(11) DEFAULT '0',
+  `deletedBy` int(11) DEFAULT '0',
+  `deletedDate` datetime DEFAULT '0000-00-00 00:00:00',
+  `sequence` int(11) DEFAULT '0',
+  PRIMARY KEY (`tourGalleryContentID`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`, `moduleRights`) VALUES
+(17, 'tours-icon.png', 'Tours Manager', 'The Tours Manager allows you to manage all the tours that are on your website.', 'tours-manager/', 1);
+
+ALTER TABLE `meta_details` ADD `tourID` INT NULL DEFAULT '0';
+
+ALTER TABLE `search_index` ADD `tourID` INT NULL DEFAULT '0';
+
+ALTER TABLE `search_termresults` ADD `tourID` INT NULL DEFAULT '0';

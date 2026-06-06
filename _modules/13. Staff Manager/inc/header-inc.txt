@@ -1,0 +1,15 @@
+<?php if($moduleID == 13){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE STAFF MEMBER*/
+        function deleteStaff(bos) {
+            var msg = "Are you sure you want to remove the selected Staff Member? Once it is removed it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_staff'+bos+'.method = "post"');
+                eval('document.delete_staff'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_staff'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

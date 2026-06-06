@@ -1,0 +1,19 @@
+/* --------------- POP-UP STYLES ------------- */
+.feedback-holder{width: 550px; height: 500px; padding: 25px; overflow: auto;}
+.feedback-header{border-bottom: 1px solid #e5e5e5; margin: 0 0 20px 0;}
+.feedback-holder h3{color: #d51c20; font-size: 28px; line-height: 36px; margin-bottom: 15px;}
+.feedback-holder p{margin-bottom: 20px;}
+.feedback-question-holder{margin-bottom: 20px;}
+.feedback-question-fields{margin-top: 5px;}
+.feedback-holderlabel:hover{cursor: pointer;}
+.feedback-holderinput, .feedback-question-fields select, .feedback-question-fields textarea {width: 100%; box-sizing: border-box; border: 1px solid #333; padding: 10px 15px; background-color: #fff; resize: none; margin-bottom: 5px;}
+.feedback-holder.overflow-table{overflow-x: auto; clear: both;}
+.feedback-holder table{margin-bottom: 20px; border-width: 0px; border-color: #d51c20; width: 100%;}
+.feedback-holder table td{padding: 7px 10px; border-width: 1px; border-color: #d51c20; vertical-align: top;}
+.feedback-holder table tr th{background: #d51c20; color: #FFF; padding: 10px; font-weight: bold; text-transform: uppercase; font-size: 12px; line-height: 20px;}
+.feedback-holder table tr:nth-child(odd){background-color: #d9d9d9;}
+.feedback-holder .submit-button {width: auto; color: #fff; background-color: #333; padding: 10px 15px; border: 1px solid #333;}
+.feedback-holder .submit-button:hover, .feedback-holder .submit-button:focus{border: 1px solid #d51c20; background-color: #d51c20; cursor: pointer;}
+#feedback-success-holder{display: none;}
+#feedback-error-holder{display: none;}
+#loader-feedback{display: none;}

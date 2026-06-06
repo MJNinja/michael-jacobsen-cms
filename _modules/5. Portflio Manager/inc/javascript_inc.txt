@@ -1,0 +1,18 @@
+<?php if($removed_website == 1){?>
+<script type="text/javascript" language="javascript">
+var website_name	    = $('input[name=website-name]').val();
+var website_link        = $('input[name=website-link]').val();
+
+var website_type        = $('input[name=website-type]').val();
+
+//OPEN COLORBOX MODAL
+$.colorbox({html:'<div class="modal-windows-holder"><div class="modal-name">Re-activate Old Website</div><div class="modal-message"><p>The <b>Website Name</b> you supplied is currently used by another website which is inactive.</p><p>If you wish you can reactive the website.</p><br /><p class="modal-question">Re-activate Website Status?</p><br /></div><form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data"><input type="hidden" name="website-name" value="'+ website_name +'"/><input type="hidden" name="website-link" value="'+ website_link +'"/><input type="hidden" name="website-type" value="'+ website_type +'"/><input type="submit" class="modal-left-link" name="reactivate-website-status" title="Yes, overwrite old website" value="Yes, re-activate old website"><input type="button" class="modal-right-link" name="cancel-overright-website-status" title="No, leave old website as is" value="No, leave old website as is"></form></div>', top: '100px'});
+
+
+//DON'T OVERWRITE TUTORIAL PLAYLIST INFO
+$('input[name=cancel-overright-website-status]').click(function(){
+	$.colorbox.close();
+})
+
+</script>
+<?php }?>

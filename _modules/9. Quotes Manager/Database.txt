@@ -1,0 +1,31 @@
+CREATE TABLE IF NOT EXISTS `quotes` (
+  `quoteID` int(11) NOT NULL AUTO_INCREMENT,
+  `quoteCatID` int(11) NOT NULL,
+  `quoteText` text NOT NULL,
+  `quoteBy` varchar(255) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`quoteID`)
+);
+
+CREATE TABLE IF NOT EXISTS `quotes_category` (
+  `quoteCatID` int(11) NOT NULL AUTO_INCREMENT,
+  `categoryName` varchar(255) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`quoteCatID`)
+);
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`, `moduleRights`) VALUES
+(9, 'quote-icon.png', 'Quote Manager', 'The Quote Manager allows you to manage all the different quotes you have added to your website.', 'quote-manager/', 0);
+

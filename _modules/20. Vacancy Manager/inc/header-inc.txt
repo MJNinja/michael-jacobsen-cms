@@ -1,0 +1,15 @@
+<?php if($moduleID == 20){ ?>
+	<script type="text/javascript" language="javascript">
+        /*REMOVE VACANCY*/
+        function deleteVacancy(bos) {
+            var msg = "Are you sure you want to remove the selected Vacancy? Once it is removed it can't be recovered.";
+            if (confirm(msg)) {
+                eval('document.delete_vacancy'+bos+'.method = "post"');
+                eval('document.delete_vacancy'+bos+'.action = "<?php echo $_SERVER['PHP_SELF'] ?>"');
+                eval('document.delete_vacancy'+bos+'.submit()');
+            } else {
+                return;
+            }
+        }
+	</script>
+<?php } ?>

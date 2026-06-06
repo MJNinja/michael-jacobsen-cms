@@ -1,0 +1,5 @@
+Deny from all 
+
+<Files "cron.sitemapGenerator.php">
+    Allow from all
+</Files>

@@ -1,0 +1,81 @@
+CREATE TABLE IF NOT EXISTS `resource` (
+  `resourceID` int(11) NOT NULL,
+  `resourceCatIDs` text NOT NULL,
+  `resourceName` varchar(255) NOT NULL,
+  `resourceImageFile` varchar(255) NOT NULL,
+  `resourceImageTitle` varchar(255) NOT NULL,
+  `resourceDescription` text NOT NULL,
+  `zipFile` varchar(255) NOT NULL,
+  `zipFileTitle` varchar(255) NOT NULL,
+  `zipFileIdentifier` varchar(255) NOT NULL,
+  `publishDate` datetime NOT NULL,
+  `affiliateIDs` text NOT NULL,
+  `url` text NOT NULL,
+  `views` bigint(20) NOT NULL,
+  `downloads` bigint(20) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`resourceID`)
+);
+
+CREATE TABLE IF NOT EXISTS `resource_category` (
+  `resourceCatID` int(11) NOT NULL,
+  `categoryName` varchar(255) NOT NULL,
+  `categoryDescription` text NOT NULL,
+  `categoryImage` varchar(255) NOT NULL,
+  `categoryImageTitle` varchar(255) NOT NULL,
+  `views` int(11) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  PRIMARY KEY (`resourceCatID`)
+);
+
+CREATE TABLE IF NOT EXISTS `resource_content` (
+  `resourceContentID` int(11) NOT NULL,
+  `resourceID` int(11) NOT NULL,
+  `paragraphTitle` varchar(255) NOT NULL,
+  `paragraph` text NOT NULL,
+  `code` text NOT NULL,
+  `imageFile` varchar(255) DEFAULT NULL,
+  `imageTitle` varchar(255) DEFAULT NULL,
+  `documentFile` varchar(255) DEFAULT NULL,
+  `documentTitle` varchar(255) DEFAULT NULL,
+  `videoUrl` varchar(255) NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `createdDate` datetime NOT NULL,
+  `modifiedBy` int(11) NOT NULL,
+  `modifiedNumber` int(11) NOT NULL,
+  `modifiedDate` datetime NOT NULL,
+  `deletedBy` int(11) NOT NULL,
+  `deletedDate` datetime NOT NULL,
+  `sequence` int(11) NOT NULL,
+  PRIMARY KEY (`resourceContentID`)
+);
+
+CREATE TABLE IF NOT EXISTS `resource_downloads` (
+  `resourceID` int(11) NOT NULL,
+  `resourceDownloadsMonth` int(11) NOT NULL,
+  `resourceDownloadsYear` int(11) NOT NULL,
+  `resourceDownloads` int(11) NOT NULL
+);
+
+ALTER TABLE `meta_details` ADD `resourceCatID` INT NULL DEFAULT '0';
+
+ALTER TABLE `meta_details` ADD `resourceID` INT NULL DEFAULT '0';
+
+INSERT INTO `cms_modules` (`cmsModuleID`, `cmsModuleIcon`, `cmsModuleName`, `cmsModuleDescription`, `cmsModulePath`) VALUES
+(6, 'resource-icon.png', 'Resource Manager', '', 'resource-manager/');
+
+ALTER TABLE `search_index` ADD `resourceID` INT NULL DEFAULT '0';
+
+ALTER TABLE `search_termresults` ADD `resourceID` INT NULL DEFAULT '0';
