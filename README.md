@@ -47,13 +47,62 @@ Select either:
 
 Copy the contents into your web root or project directory.
 
-### 2. Execute Database Scripts
+### 2. Configure Database and Application Settings
+
+Before running the CMS, you must configure your database connection and application URLs.
+
+Navigate to:
+
+```text
+library/class.systemConfig.php
+```
+
+#### Database Configuration
+
+Locate the `dbSettings()` function and update the database settings to match your environment:
+
+```php
+public static function dbSettings(){
+    $settings['host']       = 'localhost';
+    $settings['dbname']     = 'your_database_name';
+    $settings['dbpassword'] = 'your_password';
+    $settings['dbusername'] = 'your_username';
+
+    return $settings;
+}
+```
+
+#### Application URL Configuration
+
+Locate the `urlSettings()` function and update the application URLs:
+
+```php
+public static function urlSettings() {
+    $settings['simple_url'] = 'your-domain-or-path/';
+    $settings['site_dir']   = 'https://your-domain.com/';
+    $settings['cms_dir']    = 'https://your-domain.com/cms/';
+
+    return $settings;
+}
+```
+
+Example for a local development environment:
+
+```php
+$settings['simple_url'] = 'localhost/myproject/';
+$settings['site_dir']   = 'http://localhost/myproject/';
+$settings['cms_dir']    = 'http://localhost/myproject/cms/';
+```
+
+Ensure these values are configured correctly before proceeding with the database installation process.
+
+### 3. Execute Database Scripts
 
 Various modules include a `Database.txt` file containing SQL statements required for installation.
 
 Execute the relevant SQL scripts against your database.
 
-### 3. Apply Additional Integration Steps
+### 4. Apply Additional Integration Steps
 
 Some modules include additional `.txt` files containing:
 
@@ -73,7 +122,7 @@ Typical integration files include:
 
 The contents of these files should be added to their corresponding CMS include files.
 
-### 4. Install Modules
+### 5. Install Modules
 
 Modules are located inside the `_modules` directory.
 
